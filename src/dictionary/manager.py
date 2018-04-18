@@ -8,7 +8,7 @@ import json
 class Dictionary_Manager(object):
 
 	solr = 'http://localhost:8983/solr/'
-	solr_core = 'core1'
+	solr_core = 'core1-dictionary'
 
 	def dictionary_exists(self, dict_id):
 		
