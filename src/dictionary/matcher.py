@@ -5,7 +5,10 @@ import pysolr
 from opensemanticetl import export_solr
 
 #
-# Management of dictionaries in Solr schema
+# Extract Named Entities (listed in dictionaries) which occur in text
+# by dictionary based named entity extraction
+#
+# (Dictionaries are managed in Solr dictionaries by manager.py)
 #
 
 class Dictionary_Matcher(object):
