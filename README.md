@@ -9,7 +9,14 @@ REST API and Python library for search, recommendation, reconciliation, named en
 Dependencies
 ============
 
+If you do not want to use the preconfigured Debian packages providing all components out of the box, you have to install the following dependencies:
+
+Dependecies for all components:
+
 Python 3.x
+
+
+Dependency for dictionary based entity extraction:
 
 Apache Solr 7.x
 https://lucene.apache.org/solr/ (preconfigured in Git repository https://github.com/opensemanticsearch/solr.deb)
@@ -19,7 +26,16 @@ PySolr
 Open Semantic ETL
 https://opensemanticsearch.org/etl (Git repository: https://github.com/opensemanticsearch/open-semantic-etl)
 
+
+Dependencies for import of RDF ontologies and SKOS thesauri:
+
 Solr Ontology Tagger (Git repository: https://github.com/opensemanticsearch/solr-ontology-tagger)
+
+
+Dependencies for Named Entity Recognition by Machine Learning:
+
+spaCy (Git repository: https://github.com/explosion/spaCy)
+spaCy-services (Git repository: https://github.com/explosion/spacy-services)
 
 
 Web User Interfaces (UI)
