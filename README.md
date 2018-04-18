@@ -17,6 +17,8 @@ PySolr
 Open Semantic ETL
 https://opensemanticsearch.org/etl (Git repository: https://github.com/opensemanticsearch/open-semantic-etl)
 
+Solr Ontology Tagger (Git repository: https://github.com/opensemanticsearch/solr-ontology-tagger)
+
 
 Web User Interfaces (UI)
 ========================
