@@ -12,6 +12,18 @@ Web User Interfaces (UI)
 Web user interfaces for setup of dictionaries, lists of names, thesauri and ontologies in Django based Open Semantic Search Apps (Git repository: https://github.com/opensemanticsearch/open-semantic-search-apps)
 
 
+Usage
+=====
+
+After setup of your named entities you can call the API with a plain text as parameter to extract and/or recommend Named Entities like persons, organizations or places and link them to your Linked Data Knowledge Graph or the Semantic Web.
+
+
+Rich document formats
+---------------------
+
+For other file formats like PDF documents, Word documents, scanned Documents (needing OCR) and many other file formats you can use Open Semantic ETL tools which uses Apache Tika for text extraction and this Open Semantic Entity Search API for named entity linking to your Linked Data Knowledge Graph and the Semantic Web.
+
+
 Dictionary based Named Entity Extraction
 ========================================
 
@@ -38,7 +50,7 @@ Dependecies for all components:
 Python 3.x
 
 
-Dependency for dictionary based entity extraction:
+Dependencies for dictionary based entity extraction:
 
 Apache Solr 7.x
 https://lucene.apache.org/solr/ (preconfigured in Git repository https://github.com/opensemanticsearch/solr.deb)
@@ -57,4 +69,5 @@ Solr Ontology Tagger (Git repository: https://github.com/opensemanticsearch/solr
 Dependencies for Named Entity Recognition by Machine Learning:
 
 spaCy (Git repository: https://github.com/explosion/spaCy)
+
 spaCy-services (Git repository: https://github.com/explosion/spacy-services)
