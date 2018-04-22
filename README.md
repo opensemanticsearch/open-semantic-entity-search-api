@@ -41,7 +41,9 @@ Entity Linking REST-API (Open Refine Reconciliation Service API standard)
 
 The coming Entity Linker based Named Entity Linking and Normalization REST-API provides normalized entities in Open Refine Reconciliation API standard result format (Specification: https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API).
 
-So this Open Source software provides an Open Refine Reconcilation Service API for your own SKOS thesaurus, RDF ontologies and Named Entity Lists as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
+So this Open Source software provides an Open Refine Reconciliation Service API for your own SKOS thesaurus, RDF ontologies and Named Entity Lists as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
+
+Additional to the specified Open Refine Reconciliation API query parameters, you can POST a full text / context additionally or instead of entity queries of yet extracted entities or strucutred data field with entities (which in other Open Refine Reconciliation Service APIs are required), so the context will not only used for disambiguation scoring but entities will be extracted automatically from the text.
 
 
 Dictionary based Named Entity Extraction
