@@ -3,7 +3,7 @@ Open Semantic Entity Search API
 
 https://opensemanticsearch.org/doc/datamanagement/named_entity_recognition
 
-REST API and Python library for search, recommendation, reconciliation, named entity extraction, named entity linking & named entity disambiguation of named entities like persons, organizations and places for (semi)automatic semantic tagging & analysis of documents by linked data knowledge graph like SKOS thesaurus, Wikidata or RDF ontologies.
+REST API and Python library for search, recommendation, normalization, reconciliation, named entity extraction, named entity linking & named entity disambiguation of named entities like persons, organizations and places for (semi)automatic semantic tagging & analysis of documents by linked data knowledge graph like SKOS thesaurus, Wikidata or RDF ontologies, SQL database(s) or spreadsheets like CSV, TSV or Excel table(s).
 
 
 Web User Interfaces (UI)
@@ -22,6 +22,26 @@ Rich document formats
 ---------------------
 
 For other file formats like PDF documents, Word documents, scanned Documents (needing OCR) and many other file formats you can use Open Semantic ETL tools which uses Apache Tika for text extraction and this Open Semantic Entity Search API for named entity linking to your Linked Data Knowledge Graph and the Semantic Web.
+
+
+Named Entity Linking, Normalization and Disambiguation
+======================================================
+
+Link plain text names/labels to ID/URI and normalize alias or alternate label to preferred label and recommends all found entitites for disambiguation and reconciliation.
+
+
+Entity Linker, Recommender and Normalizer (Python library)
+----------------------------------------------------------
+
+Python and Dictionary Matcher based and Apache Solr search index powered Library Entity_Linker from the library entity_linking for Entity Linking and Normalization.
+
+
+Entity Linking REST-API (Open Refine Reconciliation Service API standard)
+-------------------------------------------------------------------------
+
+The coming Entity Linker based Named Entity Linking and Normalization REST-API provides normalized entities in Open Refine Reconciliation API standard result format (Specification: https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API).
+
+So this Open Source software provides an Open Refine Reconcilation Service API for your own SKOS thesaurus, RDF ontologies and Named Entity Lists as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
 
 
 Dictionary based Named Entity Extraction
@@ -45,12 +65,7 @@ Dependencies
 
 If you do not want to use the preconfigured Debian packages providing all components out of the box, you have to install the following dependencies:
 
-Dependecies for all components:
-
 Python 3.x
-
-
-Dependencies for dictionary based entity extraction:
 
 Apache Solr 7.x
 https://lucene.apache.org/solr/ (preconfigured in Git repository https://github.com/opensemanticsearch/solr.deb)
@@ -60,13 +75,10 @@ PySolr
 Open Semantic ETL
 https://opensemanticsearch.org/etl (Git repository: https://github.com/opensemanticsearch/open-semantic-etl)
 
-
-Dependencies for import of RDF ontologies and SKOS thesauri:
-
 Solr Ontology Tagger (Git repository: https://github.com/opensemanticsearch/solr-ontology-tagger)
 
 
-Dependencies for Named Entity Recognition by Machine Learning:
+Dependencies for Named Entity Recognition of entities by Machine Learning, that are not in ontologies, thesauri, databases or lists:
 
 spaCy (Git repository: https://github.com/explosion/spaCy)
 
