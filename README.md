@@ -33,11 +33,14 @@ So this Open Source software provides an Open Refine Reconciliation Service API 
 
 Additional to the specified Open Refine Reconciliation API query parameters, you can POST a full text / context additionally or instead of entity queries of yet extracted entities or strucutred data field with entities (which in other Open Refine Reconciliation Service APIs are required), so the context will not only used for disambiguation scoring but entities will be extracted automatically from the text.
 
-Examples:
+
+REST-API parameters
+-------------------
 
 Automatic named entity extraction of all known/imported entities:
 
 HTTP POST a plain text as parameter "text" to http://localhost/search-apps/entity_rest_api/reconcile so all known entities will be extracted automatically.
+
 
 Query for entities:
 
@@ -46,6 +49,9 @@ http://localhost/search-apps/entity_rest_api/reconcile?queries={ "q0" : { "query
 ```
 Optionally you can HTTP POST a context as parameter "text" to provide more context to improve scoring of disambiguation (scoring by context not implemented yet).
 
+
+JSON response
+-------------
 
 In both cases the response (stuctured by Open Refine Reconciliation Service API response standard specified in https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API#query-response) is a JSON literal object with the same keys as in the request
 
