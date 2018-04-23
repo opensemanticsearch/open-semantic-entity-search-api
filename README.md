@@ -24,6 +24,60 @@ Named Entity Linking, Normalization and Disambiguation
 Link plain text names/labels to ID/URI and normalize alias or alternate label to preferred label and recommends all found entitites for disambiguation and reconciliation.
 
 
+Entity Linking REST-API (Open Refine Reconciliation Service API standard)
+-------------------------------------------------------------------------
+
+The Entity Linker based Named Entity Linking and Normalization REST-API in entity_rest_api provides normalized entities in Open Refine Reconciliation API standard result format (Specification: https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API).
+
+So this Open Source software provides an Open Refine Reconciliation Service API for your own SKOS thesaurus, RDF ontologies and Named Entity Lists as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
+
+Additional to the specified Open Refine Reconciliation API query parameters, you can POST a full text / context additionally or instead of entity queries of yet extracted entities or strucutred data field with entities (which in other Open Refine Reconciliation Service APIs are required), so the context will not only used for disambiguation scoring but entities will be extracted automatically from the text.
+
+Examples:
+
+Automatic named entity extraction of all known/imported entities:
+
+HTTP POST a plain text as parameter "text" to http://localhost/search-apps/entity_rest_api/reconcile so all known entities will be extracted automatically.
+
+Query for entities:
+
+```
+http://localhost/search-apps/entity_rest_api/reconcile?queries={ "q0" : { "query" : "Jon Doe" }, "q1" : { "query" : "Berlin" } }
+```
+Optionally you can HTTP POST a context as parameter "text" to provide more context to improve scoring of disambiguation (scoring by context not implemented yet).
+
+
+In both cases the response (stuctured by Open Refine Reconciliation Service API response standard specified in https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API#query-response) is a JSON literal object with the same keys as in the request
+
+```
+{
+	"q0" : {
+		"result" : { ... }
+	},
+	"q1" : {
+		"result" : { ... }
+	}
+}
+```
+
+Each result consists of a JSON literal object with the structure
+
+```
+{
+	"result" : [
+		{
+			"id" : ... string, URI or database ID ...
+			"name" : ... string ...
+			"type" : ... array of strings ...
+			"score" : ... double ...
+			"match" : ... boolean, true if the service is quite confident about the match ...
+		},
+		... more results ...
+	]
+}
+```
+
+
 Entity Linker, Recommender and Normalizer (Python library)
 ----------------------------------------------------------
 
@@ -35,21 +89,13 @@ Example:
 from entity_linking.entity_linker import Entity_Linker
 
 linker = Entity_Linker()
-results = linker.entities( queries={ 'q1': {'query': 'Berlin'}, 'q2': { 'query': 'Jon Doe' } } )
+
+results = linker.entities( queries = { 'q1': {'query': 'Berlin'}, 'q2': { 'query': 'Jon Doe' } } )
 print (results)
-results = linker.entities( text= "Mr. Jon Doe lives in Berlin." )
+
+results = linker.entities( text = "Mr. Jon Doe lives in Berlin." )
 print (results)
 ```
-
-
-Entity Linking REST-API (Open Refine Reconciliation Service API standard)
--------------------------------------------------------------------------
-
-The Entity Linker based Named Entity Linking and Normalization REST-API in entity_rest_api provides normalized entities in Open Refine Reconciliation API standard result format (Specification: https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API).
-
-So this Open Source software provides an Open Refine Reconciliation Service API for your own SKOS thesaurus, RDF ontologies and Named Entity Lists as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
-
-Additional to the specified Open Refine Reconciliation API query parameters, you can POST a full text / context additionally or instead of entity queries of yet extracted entities or strucutred data field with entities (which in other Open Refine Reconciliation Service APIs are required), so the context will not only used for disambiguation scoring but entities will be extracted automatically from the text.
 
 
 Dictionary based Named Entity Extraction
