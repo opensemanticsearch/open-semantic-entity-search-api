@@ -29,7 +29,7 @@ class Dictionary_Manager(object):
 			data = {
 				"add-field-type":
 				{
-					"name": dict_id,
+					"name": 'dictionary_matcher_' + dict_id,
 					"class": "solr.TextField",
 					"sortMissingLast": "true",
 					"omitNorms": "true",
@@ -67,7 +67,7 @@ class Dictionary_Manager(object):
 				"add-field":
 				{
 					"name": dict_id,
-					"type": dict_id,
+					"type": 'dictionary_matcher_' + dict_id,
 					"indexed": "true",
 					"stored": "false",
 					"multiValued": "true"
@@ -112,3 +112,20 @@ def solr_is_field(solr, solr_core, fieldname):
 			result = True
 
 	return result
+
+
+def get_dictionaries(solr, solr_core):
+
+	dictionaries = []
+	
+	url = solr + solr_core + '/schema/fields'
+
+	r = requests.get(url)
+
+	data = r.json()
+		
+	for field in data['fields']:
+		if field['type'].startswith('dictionary_matcher_'):
+			dictionaries.append(field['name'])
+	
+	return dictionaries
