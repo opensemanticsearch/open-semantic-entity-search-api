@@ -3,7 +3,7 @@ Open Source REST-API for Named Entity Extraction, Normalization, Reconciliation,
 
 https://opensemanticsearch.org/doc/datamanagement/named_entity_recognition
 
-REST API and Python library for search, recommendation, normalization, reconciliation, named entity extraction, named entity linking & named entity disambiguation of named entities like persons, organizations and places for (semi)automatic semantic tagging & analysis of documents by linked data knowledge graph like SKOS thesaurus, Wikidata or RDF ontologies, SQL database(s) or spreadsheets like CSV, TSV or Excel table(s).
+REST API and Python library for search, suggestion, recommendation, normalization, reconciliation, named entity extraction, named entity linking & named entity disambiguation of named entities like persons, organizations and places for (semi)automatic semantic tagging & analysis of documents by linked data knowledge graph like SKOS thesaurus, Wikidata or RDF ontologies, SQL database(s) or spreadsheets like CSV, TSV or Excel table(s).
 
 
 Usage
@@ -33,7 +33,7 @@ Python and Dictionary Matcher based and Apache Solr search index powered Library
 Entity Linking REST-API (Open Refine Reconciliation Service API standard)
 -------------------------------------------------------------------------
 
-The coming Entity Linker based Named Entity Linking and Normalization REST-API provides normalized entities in Open Refine Reconciliation API standard result format (Specification: https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API).
+The Entity Linker based Named Entity Linking and Normalization REST-API in entity_rest_api provides normalized entities in Open Refine Reconciliation API standard result format (Specification: https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API).
 
 So this Open Source software provides an Open Refine Reconciliation Service API for your own SKOS thesaurus, RDF ontologies and Named Entity Lists as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
 
@@ -76,11 +76,20 @@ Web user interface to import RDF ontologies or SPARQL results
 https://opensemanticsearch.org/doc/datamanagement/ontologies
 
 
-Wikidata
---------
+Linked Open Data (LOD) like Wikidata
+------------------------------------
 
-Import lists of names from Wikidata
+Import Linked Open Data
+https://opensemanticsearch.org/doc/datamanagement/opendata
+
+Example: Import lists of names from Wikidata
 https://opensemanticsearch.org/doc/datamanagement/opendata/wikidata
+
+
+Import named entities from SQL database(s)
+------------------------------------------
+
+Until implementation of the SQL database importer command line tool and UI to import named entities from database(s), that are not available as SKOS thesaurus or RDF ontology and can be imported by the other user interfaces, add a dictionary of the labels by Dictionary Manager and index them to the Solr search index using the field name "id" for the ID or URI, "preferred_label_s" for the normalized name / preferred label and "label_ss" or "skos_altLabel_ss" with all aliases or alternate labels/names.
 
 
 Dependencies
