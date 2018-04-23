@@ -9,7 +9,7 @@ REST API and Python library for search, suggestion, recommendation, normalizatio
 Usage
 =====
 
-After setup of your named entities by ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the API with a plain text as parameter to extract and/or recommend Named Entities like persons, organizations or places and link them to your Linked Data Knowledge Graph or the Semantic Web.
+After setup of your named entities by ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the REST API with a plain text as parameter (see section "REST API parameters") to extract and/or recommend Named Entities like persons, organizations or places and link them (see section "JSON response") to your Linked Data Knowledge Graph or the Semantic Web.
 
 
 Rich document formats
