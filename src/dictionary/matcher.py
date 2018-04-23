@@ -17,7 +17,7 @@ class Dictionary_Matcher(object):
 	solr_core = 'core1-dictionary'
 
 
-	def get_dictionaries():
+	def get_dictionaries(self):
 	
 		dictionaries = []
 		
