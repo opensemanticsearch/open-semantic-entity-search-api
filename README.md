@@ -29,6 +29,18 @@ Entity Linker, Recommender and Normalizer (Python library)
 
 Python and Dictionary Matcher based and Apache Solr search index powered Library Entity_Linker from the library entity_linking for Entity Linking and Normalization.
 
+Example:
+
+```
+from entity_linking.entity_linker import Entity_Linker
+
+linker = Entity_Linker()
+results = linker.entities( queries={ 'q1': {'query': 'Berlin'}, 'q2': { 'query': 'Jon Doe' } } )
+print (results)
+results = linker.entities( text= "Mr. Jon Doe lives in Berlin." )
+print (results)
+```
+
 
 Entity Linking REST-API (Open Refine Reconciliation Service API standard)
 -------------------------------------------------------------------------
@@ -89,7 +101,7 @@ https://opensemanticsearch.org/doc/datamanagement/opendata/wikidata
 Import named entities from SQL database(s)
 ------------------------------------------
 
-Until implementation of the SQL database importer command line tool and UI to import named entities from database(s), that are not available as SKOS thesaurus or RDF ontology and can be imported by the other user interfaces, add a dictionary of the labels by Dictionary Manager and index them to the Solr search index using the field name "id" for the ID or URI, "preferred_label_s" for the normalized name / preferred label and "label_ss" or "skos_altLabel_ss" with all aliases or alternate labels/names.
+Until implementation of the SQL database importer command line tool and UI to import named entities from database(s), that are not available as SKOS thesaurus or RDF ontology and can be imported by the other user interfaces, add a dictionary of all viariants of labels by Dictionary Manager and index them to the Solr search index using the field name "id" for the ID or URI, "preferred_label_s" for the normalized name / preferred label and "label_ss" or "skos_altLabel_ss" with all aliases or alternate labels/names.
 
 
 Dependencies
