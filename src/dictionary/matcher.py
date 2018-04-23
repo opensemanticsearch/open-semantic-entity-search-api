@@ -58,9 +58,10 @@ class Dictionary_Matcher(object):
 			'wt': 'json',
 			'rows': 0, # we do not need document field results, only the facet
 			'facet.limit': -1, # This param indicates the maximum number of constraint counts that should be returned for the facet fields. A negative value means unlimited.
+			'facet.mincount': 1,
 			'facet': 'on',
 			'facet.field': dict_ids,
-			'fq': 'id:' + docid
+			'q': 'id:' + docid
 		}
 		
 		r = requests.get(self.solr + self.solr_core + '/select', params=params, headers=headers)
