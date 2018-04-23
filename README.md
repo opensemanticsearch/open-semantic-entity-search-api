@@ -9,7 +9,7 @@ REST API and Python library for search, suggestion, recommendation, normalizatio
 Usage
 =====
 
-After setup of your named entities by ontologies, thesaurus, database(s) or lists of names (see the section web user interfaces) you can call the API with a plain text as parameter to extract and/or recommend Named Entities like persons, organizations or places and link them to your Linked Data Knowledge Graph or the Semantic Web.
+After setup of your named entities by ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the API with a plain text as parameter to extract and/or recommend Named Entities like persons, organizations or places and link them to your Linked Data Knowledge Graph or the Semantic Web.
 
 
 Rich document formats
@@ -120,23 +120,27 @@ Dictionary manager
 For managing dictionaries like lists of names the Dictionary_Manager in dictionary/manager.py is used.
 
 
+Import named entities
+=====================
+
+
 Web User Interfaces (UI) for metadata management and setup of named entities
-============================================================================
+----------------------------------------------------------------------------
 
-Web user interfaces for setup of dictionaries, lists of names, thesauri and ontologies in Django based Open Semantic Search Apps (Git repository: https://github.com/opensemanticsearch/open-semantic-search-apps)
+Web user interfaces for setup of dictionaries, lists of names, thesauri and ontologies in Django based Open Semantic Search Apps (Git repository: https://github.com/opensemanticsearch/open-semantic-search-apps):
 
 
-Thesaurus
----------
+Thesaurus (SKOS)
+----------------
 
 Web user interface for management of a SKOS thesaurus
 https://opensemanticsearch.org/doc/datamanagement/thesaurus
 
 
-Ontologies Manager
-------------------
+Ontologies (RDF)
+----------------
 
-Web user interface to import RDF ontologies or SPARQL results
+Ontologies Manager is a web user interface to import RDF ontologies or SPARQL results
 https://opensemanticsearch.org/doc/datamanagement/ontologies
 
 
