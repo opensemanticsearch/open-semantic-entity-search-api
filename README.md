@@ -9,7 +9,7 @@ REST API and Python library for search, suggestion, recommendation, normalizatio
 Usage
 =====
 
-After setup of your named entities by ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the REST API with a plain text as parameter (see section "REST API parameters") to extract and/or recommend Named Entities like persons, organizations or places and link them (see section "JSON response") to your Linked Data Knowledge Graph or the Semantic Web.
+After setup of your named entities by ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the REST API with a plain text as parameter (see section "REST API request parameters") to extract and/or recommend Named Entities like persons, organizations or places and link them (see section "JSON response") to your Linked Data Knowledge Graph or the Semantic Web.
 
 
 Rich document formats
@@ -34,8 +34,8 @@ So this Open Source software provides an Open Refine Reconciliation Service API 
 Additional to the specified Open Refine Reconciliation API query parameters, you can POST a full text / context additionally or instead of entity queries of yet extracted entities or strucutred data field with entities (which in other Open Refine Reconciliation Service APIs are required), so the context will not only used for disambiguation scoring but entities will be extracted automatically from the text.
 
 
-REST-API parameters
--------------------
+REST-API request parameters
+---------------------------
 
 Automatic named entity extraction of all known/imported entities:
 
@@ -96,11 +96,14 @@ from entity_linking.entity_linker import Entity_Linker
 
 linker = Entity_Linker()
 
+# extract and normalize/link all known entities
+results = linker.entities( text = "Mr. Jon Doe lives in Berlin." )
+print (results)
+
+# normalize/link only the queried entities
 results = linker.entities( queries = { 'q1': {'query': 'Berlin'}, 'q2': { 'query': 'Jon Doe' } } )
 print (results)
 
-results = linker.entities( text = "Mr. Jon Doe lives in Berlin." )
-print (results)
 ```
 
 
