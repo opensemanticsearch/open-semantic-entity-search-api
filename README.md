@@ -1,5 +1,5 @@
-Open Semantic Entity Search API
-===============================
+Open Semantic Entity Search, Normalization, Named Entity Disambiguation and Named Entity Linking API
+====================================================================================================
 
 https://opensemanticsearch.org/doc/datamanagement/named_entity_recognition
 
@@ -12,10 +12,31 @@ Web User Interfaces (UI)
 Web user interfaces for setup of dictionaries, lists of names, thesauri and ontologies in Django based Open Semantic Search Apps (Git repository: https://github.com/opensemanticsearch/open-semantic-search-apps)
 
 
+Thesaurus
+---------
+
+Web user interface for management of a SKOS thesaurus
+https://opensemanticsearch.org/doc/datamanagement/thesaurus
+
+
+Ontologies Manager
+------------------
+
+Web user interface to import RDF ontologies or SPARQL results
+https://opensemanticsearch.org/doc/datamanagement/ontologies
+
+
+Wikidata
+--------
+
+Import lists of names from Wikidata
+https://opensemanticsearch.org/doc/datamanagement/opendata/wikidata
+
+
 Usage
 =====
 
-After setup of your named entities you can call the API with a plain text as parameter to extract and/or recommend Named Entities like persons, organizations or places and link them to your Linked Data Knowledge Graph or the Semantic Web.
+After setup of your named entities by ontologies, thesaurus, database(s) or lists of names you can call the API with a plain text as parameter to extract and/or recommend Named Entities like persons, organizations or places and link them to your Linked Data Knowledge Graph or the Semantic Web.
 
 
 Rich document formats
