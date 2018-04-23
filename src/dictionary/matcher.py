@@ -39,7 +39,7 @@ class Dictionary_Matcher(object):
 		matches = {}
 
 		if not dict_ids:
-			dictionaries = get_dictionaries()
+			dictionaries = self.get_dictionaries()
 
 		hash = hashlib.sha256(text.encode('utf-8'))
 		docid=hex_dig = hash.hexdigest()
