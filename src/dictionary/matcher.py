@@ -2,7 +2,6 @@ import requests
 import json
 import hashlib
 import pysolr
-from dictionary import manager
 from opensemanticetl import export_solr
 
 #
@@ -18,12 +17,29 @@ class Dictionary_Matcher(object):
 	solr_core = 'core1-dictionary'
 
 
+	def get_dictionaries():
+	
+		dictionaries = []
+		
+		url = self.solr + self.solr_core + '/schema/fields'
+	
+		r = requests.get(url)
+	
+		data = r.json()
+			
+		for field in data['fields']:
+			if field['type'].startswith('dictionary_matcher_'):
+				dictionaries.append(field['name'])
+		
+		return dictionaries
+	
+	
 	def matches(self, text, dict_ids=None):
 
 		matches = {}
 
 		if not dict_ids:
-			dictionaries = manager.get_dictionaries(solr=solr, solr_core=solr_core)
+			dictionaries = get_dictionaries()
 
 		hash = hashlib.sha256(text.encode('utf-8'))
 		docid=hex_dig = hash.hexdigest()

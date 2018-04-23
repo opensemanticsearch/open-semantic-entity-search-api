@@ -112,20 +112,3 @@ def solr_is_field(solr, solr_core, fieldname):
 			result = True
 
 	return result
-
-
-def get_dictionaries(solr, solr_core):
-
-	dictionaries = []
-	
-	url = solr + solr_core + '/schema/fields'
-
-	r = requests.get(url)
-
-	data = r.json()
-		
-	for field in data['fields']:
-		if field['type'].startswith('dictionary_matcher_'):
-			dictionaries.append(field['name'])
-	
-	return dictionaries
