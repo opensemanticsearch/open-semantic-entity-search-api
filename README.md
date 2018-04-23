@@ -1,5 +1,5 @@
-Open Semantic Entity Search, Normalization, Named Entity Disambiguation and Named Entity Linking API
-====================================================================================================
+Open Source REST-API for Named Entity Extraction, Normalization, Reconciliation, Recommendation, Named Entity Disambiguation and Named Entity Linking
+=====================================================================================================================================================
 
 https://opensemanticsearch.org/doc/datamanagement/named_entity_recognition
 
