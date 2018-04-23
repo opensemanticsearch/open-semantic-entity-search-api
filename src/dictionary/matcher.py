@@ -42,7 +42,7 @@ class Dictionary_Matcher(object):
 			dict_ids = self.get_dictionaries()
 
 		hash = hashlib.sha256(text.encode('utf-8'))
-		docid=hex_dig = hash.hexdigest()
+		docid = hash.hexdigest()
 
 		solr = export_solr.export_solr(solr = self.solr, core = self.solr_core)
 
