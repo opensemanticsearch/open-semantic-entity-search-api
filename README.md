@@ -6,37 +6,10 @@ https://opensemanticsearch.org/doc/datamanagement/named_entity_recognition
 REST API and Python library for search, recommendation, normalization, reconciliation, named entity extraction, named entity linking & named entity disambiguation of named entities like persons, organizations and places for (semi)automatic semantic tagging & analysis of documents by linked data knowledge graph like SKOS thesaurus, Wikidata or RDF ontologies, SQL database(s) or spreadsheets like CSV, TSV or Excel table(s).
 
 
-Web User Interfaces (UI)
-========================
-
-Web user interfaces for setup of dictionaries, lists of names, thesauri and ontologies in Django based Open Semantic Search Apps (Git repository: https://github.com/opensemanticsearch/open-semantic-search-apps)
-
-
-Thesaurus
----------
-
-Web user interface for management of a SKOS thesaurus
-https://opensemanticsearch.org/doc/datamanagement/thesaurus
-
-
-Ontologies Manager
-------------------
-
-Web user interface to import RDF ontologies or SPARQL results
-https://opensemanticsearch.org/doc/datamanagement/ontologies
-
-
-Wikidata
---------
-
-Import lists of names from Wikidata
-https://opensemanticsearch.org/doc/datamanagement/opendata/wikidata
-
-
 Usage
 =====
 
-After setup of your named entities by ontologies, thesaurus, database(s) or lists of names you can call the API with a plain text as parameter to extract and/or recommend Named Entities like persons, organizations or places and link them to your Linked Data Knowledge Graph or the Semantic Web.
+After setup of your named entities by ontologies, thesaurus, database(s) or lists of names (see the section web user interfaces) you can call the API with a plain text as parameter to extract and/or recommend Named Entities like persons, organizations or places and link them to your Linked Data Knowledge Graph or the Semantic Web.
 
 
 Rich document formats
@@ -81,6 +54,33 @@ Apache Lucene/Solr powered dictionary based named entity extaction is done by Di
 Dictionary manager
 ------------------
 For managing dictionaries like lists of names the Dictionary_Manager in dictionary/manager.py is used.
+
+
+Web User Interfaces (UI) for metadata management and setup of named entities
+============================================================================
+
+Web user interfaces for setup of dictionaries, lists of names, thesauri and ontologies in Django based Open Semantic Search Apps (Git repository: https://github.com/opensemanticsearch/open-semantic-search-apps)
+
+
+Thesaurus
+---------
+
+Web user interface for management of a SKOS thesaurus
+https://opensemanticsearch.org/doc/datamanagement/thesaurus
+
+
+Ontologies Manager
+------------------
+
+Web user interface to import RDF ontologies or SPARQL results
+https://opensemanticsearch.org/doc/datamanagement/ontologies
+
+
+Wikidata
+--------
+
+Import lists of names from Wikidata
+https://opensemanticsearch.org/doc/datamanagement/opendata/wikidata
 
 
 Dependencies
