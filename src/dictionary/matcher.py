@@ -49,7 +49,7 @@ class Dictionary_Matcher(object):
 		data = {}
 		data['id'] = docid
 		# shingle in Solr seems not to work for entities on begin or end of text, so adding a whitespace on begin and end
-		data['text_txt'] = " " + text + " "
+		data['text_txt'] = text
 		
 		solr.post(data=data, commit=True)
 
