@@ -1,6 +1,5 @@
 import requests
 import json
-import pysolr
 from dictionary.matcher import Dictionary_Matcher
 
 #
@@ -21,7 +20,7 @@ class Entity_Linker(object):
 	solr = 'http://localhost:8983/solr/'
 	solr_core = 'core1-dictionary'
 	
-	fields = ['id', 'label_ss', 'preferred_label_s', 'skos_prefLabel_ss', 'skos_altLabel_ss', 'skos_hiddenLabel_ss']
+	fields = ['id', 'score', 'label_ss', 'preferred_label_s', 'skos_prefLabel_ss', 'skos_altLabel_ss', 'skos_hiddenLabel_ss']
 
 	def dictionary_matches(self, text):
 		
@@ -45,16 +44,13 @@ class Entity_Linker(object):
 
 		headers = {'content-type' : 'application/json'}
 
-		search_result_fields = self.fields
-		search_result_fields.append("score")
-
 		for query in queries:
 
 			params = {
 				'wt': 'json',
 				'defType': 'edismax',
 				'qf': ['label_ss', 'preferred_label_s^10', 'skos_prefLabel_ss^10', 'skos_altLabel_ss','skos_hiddenLabel_ss'],
-				'fl': search_result_fields,
+				'fl': self.fields,
 				'q': "\"" + queries[query]['query'] + "\"",
 			}
 
@@ -62,7 +58,7 @@ class Entity_Linker(object):
 				params['rows'] = queries[query]['limit']
 			else:
 				params['rows'] = limit
-				
+			
 			r = requests.get(self.solr + self.solr_core + '/select', params=params, headers=headers)
 			search_results = r.json()
 
@@ -96,20 +92,22 @@ class Entity_Linker(object):
 				match = False
 				for field in self.fields:
 					if field in search_result:
-
-						values = search_result[field]
-						if not isinstance(values, list):
-							values = [values]
-
-						for value in values:
-							if str(value).lower() == queries[query]['query'].lower():
-								match = True
+						if not field == 'score':
+	
+							values = search_result[field]
+							if not isinstance(values, list):
+								values = [values]
+	
+							for value in values:
+								if str(value).lower() == queries[query]['query'].lower():
+									match = True
 				
 				result = {
 					'id': search_result['id'],
 					'name': label,
 					'score': search_result['score'],
 					'match': match,
+					'type': [],
 				}
 				
 				results.append(result)
