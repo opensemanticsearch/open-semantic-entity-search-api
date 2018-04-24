@@ -6,10 +6,10 @@ https://opensemanticsearch.org/doc/datamanagement/named_entity_recognition
 REST API and Python library for search, suggestion, recommendation, normalization, reconciliation, named entity extraction, named entity linking & named entity disambiguation of named entities like persons, organizations and places for (semi)automatic semantic tagging & analysis of documents by linked data knowledge graph like SKOS thesaurus, Wikidata or RDF ontologies, SQL database(s) or spreadsheets like CSV, TSV or Excel table(s).
 
 
-Open Source and Open Standards (Open Refine Reconciliation Service API, HTTP, REST, SKOS, RDF, JSON)
-====================================================================================================
+Open Source and Open Standards
+==============================
 
-By integration of Open Standards for data formats and REST APIs and Open Source tools for natural language processing and text analytics this Free Software provides an Open Refine Reconciliation Service API (extended with automatic entity extraction, so you can post a full text instead of entity queries) for your own SKOS thesaurus, RDF ontologies and lists of names from lists, spreadseheets or databases as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
+By integration of Open Standards for structured data formats (SKOS, RDF, JSON) and REST APIs (HTTP, REST, Open Refine Reconciliation Service API) and Open Source tools for natural language processing and text analytics this Free Software provides an Open Refine Reconciliation Service API (extended with automatic entity extraction, so you can post a full text instead of entity queries) for your own SKOS thesaurus, RDF ontologies and lists of names from lists, spreadseheets or databases as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
 
 
 Usage
