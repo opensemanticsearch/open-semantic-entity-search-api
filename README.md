@@ -5,17 +5,13 @@ https://opensemanticsearch.org/doc/datamanagement/named_entity_recognition
 
 REST API and Python library for search, suggestion, recommendation, normalization, reconciliation, named entity extraction, named entity linking & named entity disambiguation of named entities like persons, organizations and places for (semi)automatic semantic tagging & analysis of documents by linked data knowledge graph like SKOS thesaurus, Wikidata or RDF ontologies, SQL database(s) or spreadsheets like CSV, TSV or Excel table(s).
 
+By integration of Open Standards and Open Source tools for natural language processing and text analysis this Free Software provides an Open Refine Reconciliation Service API (extended with automatic entity extraction, so you can post a full text instead of entity queries) for your own SKOS thesaurus, RDF ontologies and lists of names as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
+
 
 Usage
 =====
 
-After setup of your named entities by ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the REST API with a plain text as parameter (see section "REST API request parameters") to extract and/or recommend Named Entities like persons, organizations or places and link them (see section "JSON response") to your Linked Data Knowledge Graph or the Semantic Web.
-
-
-Rich document formats
----------------------
-
-For other file formats like PDF documents, Word documents, scanned Documents (needing OCR) and many other file formats you can use Open Semantic ETL tools which uses Apache Tika for text extraction and this Open Semantic Entity Search API for named entity linking to your Linked Data Knowledge Graph and the Semantic Web.
+After configuration (see section "Web User Interfaces (UI) for configuration and management of named entities") of your named entities from ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the REST API with a plain text as parameter (see section "REST API request parameters") to extract and/or recommend Named Entities like persons, organizations or places and link them (see section "JSON response") to your Linked Data Knowledge Graph, Linked Open Data and Semantic Web.
 
 
 Named Entity Linking, Normalization and Disambiguation
@@ -24,12 +20,10 @@ Named Entity Linking, Normalization and Disambiguation
 Link plain text names/labels to ID/URI and normalize alias or alternate label to preferred label and recommends all found entitites for disambiguation and reconciliation.
 
 
-Entity Linking REST-API (Open Refine Reconciliation Service API standard)
--------------------------------------------------------------------------
+REST-API (Open Refine Reconciliation Service API standard)
+----------------------------------------------------------
 
 The Entity Linker based Named Entity Linking and Normalization REST-API in entity_rest_api provides normalized entities in Open Refine Reconciliation API standard result format (Specification: https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API).
-
-So this Open Source software provides an Open Refine Reconciliation Service API for your own SKOS thesaurus, RDF ontologies and Named Entity Lists as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
 
 Additional to the specified Open Refine Reconciliation API query parameters, you can POST a full text / context additionally or instead of entity queries of yet extracted entities or strucutred data field with entities (which in other Open Refine Reconciliation Service APIs are required), so the context will not only used for disambiguation scoring but entities will be extracted automatically from the text.
 
@@ -127,10 +121,10 @@ Import named entities
 =====================
 
 
-Web User Interfaces (UI) for metadata management and setup of named entities
-----------------------------------------------------------------------------
+Web User Interfaces (UI) for configuration and management of named entities
+---------------------------------------------------------------------------
 
-Web user interfaces for setup of dictionaries, lists of names, thesauri and ontologies in Django based Open Semantic Search Apps (Git repository: https://github.com/opensemanticsearch/open-semantic-search-apps):
+Web user interfaces for setup/configuration of dictionaries, lists of names, thesauri and ontologies in Django based Open Semantic Search Apps (Git repository: https://github.com/opensemanticsearch/open-semantic-search-apps):
 
 
 Thesaurus (SKOS)
@@ -161,6 +155,12 @@ Import named entities from SQL database(s)
 ------------------------------------------
 
 Until implementation of the SQL database importer command line tool and UI to import named entities from database(s), that are not available as SKOS thesaurus or RDF ontology and can be imported by the other user interfaces, add a dictionary of all viariants of labels by Dictionary Manager and index them to the Solr search index using the field name "id" for the ID or URI, "preferred_label_s" for the normalized name / preferred label and "label_ss" or "skos_altLabel_ss" with all aliases or alternate labels/names.
+
+
+Rich document formats
+=====================
+
+For named entity recognition, named entity extraction and named entity linking and disambiguation of entities from other file formats like PDF documents, Word documents, scanned Documents (needing OCR) and many other file formats you can use Open Semantic ETL tools and user interfaces for crawling filesystems, using Apache Tika for text extraction, Tesseract for OCR and many other Open Source tools for data enrichment and analysis and calling this Open Semantic Entity Search API for named entity extraction and named entity linking to your Linked Data Knowledge Graph and the Semantic Web.
 
 
 Dependencies
