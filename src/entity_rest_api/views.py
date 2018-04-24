@@ -15,27 +15,49 @@
 # Specification: https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API#query-response
 
 
-import json
+from django.http import JsonResponse
 from django.http import HttpResponse
 from entity_linking.entity_linker import Entity_Linker
+import json
+from django.views.decorators.csrf import csrf_exempt
 
-
+@csrf_exempt
 def reconcile(request):
-
 	queries = None
 	if 'queries' in request.GET:
-		queries = request.GET['queries']
+		queries = json.loads(request.GET['queries'])
 	elif 'queries' in request.POST:
-		queries = request.POST['queries']
-
+		queries = json.loads(request.POST['queries'])
+		
 	text = None
 	if 'text' in request.POST:
 		text = request.POST['text']
 	elif 'text' in request.GET:
 		text = request.GET['text']
 
-	# link/normalize/disambiguate entities
-	entity_linker = Entity_Linker()
-	results = entity_linker.entities(queries=queries, text=text)
+	if queries or text:
 
-	return HttpResponse(json.dumps( results ), content_type="application/json")
+		# link/normalize/disambiguate entities
+		entity_linker = Entity_Linker()
+		results = entity_linker.entities(queries=queries, text=text)
+
+	else:
+	
+		# no queries, so just return service metadata		
+		results = {
+			'name': 'Open Semantic Entity Search API',
+		}
+	
+	# Open Refine uses JSONP callback
+	callback = None
+	if 'callback' in request.GET:
+		callback = request.GET['callback']
+	elif 'callback' in request.POST:
+		callback = request.POST['callback']
+
+	if callback:
+		# JSONP response instead of Jsonresponse
+		results = '{}({});'.format( callback, json.dumps(results) )
+		return HttpResponse(results, "text/javascript")
+	else:
+		return JsonResponse(results)
