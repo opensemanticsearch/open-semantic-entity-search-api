@@ -15,7 +15,7 @@ By integration of Open Standards for structured data formats (SKOS, RDF, JSON) a
 Usage
 =====
 
-After configuration (see section "Web User Interfaces (UI) for configuration and management of named entities") of your named entities from ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the REST API with a plain text as parameter (see section "REST API request parameters") to extract and/or recommend Named Entities like persons, organizations or places and link them (see section "JSON response") to your Linked Data Knowledge Graph, Linked Open Data and Semantic Web.
+After configuration (see section "Web User Interfaces (UI) for configuration and management of named entities") of your named entities from ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the REST API with a plain text / full-text (or even document files like PDF or Word, see section "Rich document formats") as parameter (see section "REST API request parameters") to extract and/or recommend Named Entities like persons, organizations or places and link them (see section "JSON response") to your Linked Data Knowledge Graph, Linked Open Data and Semantic Web.
 
 
 Named Entity Linking, Normalization and Disambiguation
@@ -39,7 +39,7 @@ Additional to the specified Open Refine Reconciliation API query parameters, you
 REST-API request parameters
 ---------------------------
 
-Automatic named entity extraction of all known/imported entities:
+Automatic named entity extraction of all known/imported entities / names / labels:
 
 HTTP POST a plain text as parameter "text" to http://localhost/search-apps/entity_rest_api/reconcile so all known entities will be extracted automatically.
 
@@ -98,7 +98,7 @@ from entity_linking.entity_linker import Entity_Linker
 
 linker = Entity_Linker()
 
-# extract and normalize/link all known entities
+# extract and normalize/link all known entities/names/labels
 results = linker.entities( text = "Mr. Jon Doe lives in Berlin." )
 print (results)
 
