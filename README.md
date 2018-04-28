@@ -9,7 +9,7 @@ REST API and Python library for search, suggestion, recommendation, normalizatio
 Open Source and Open Standards
 ==============================
 
-By integration of Open Standards for structured data formats (SKOS, RDF, JSON) and REST APIs (HTTP, REST, Open Refine Reconciliation Service API) and Open Source tools for natural language processing and text analytics this Free Software provides an Open Refine Reconciliation Service API (extended with automatic entity extraction, so you can post a full text instead of entity queries) for your own SKOS thesaurus, RDF ontologies and lists of names from lists, spreadseheets or databases as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
+By integration of Open Standards for structured data formats (SKOS, RDF, JSON) and REST APIs (HTTP, REST) and entity linking/disambiguation/reconciliation (Open Refine Reconciliation Service API) and Open Source tools for natural language processing and text analytics this Free Software provides an Open Refine Reconciliation Service API (extended with automatic entity extraction, so you can post a full text instead of entity queries) for your own SKOS thesaurus, RDF ontologies and lists of names from lists, spreadseheets or databases as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
 
 
 Usage
@@ -21,13 +21,17 @@ After configuration (see section "Web User Interfaces (UI) for configuration and
 Named Entity Linking, Normalization and Disambiguation
 ======================================================
 
-Link plain text names/labels to ID/URI and normalize alias or alternate label to preferred label and recommends all found entitites for disambiguation and reconciliation.
+Links plain text names/labels to ID/URI and normalizes alias or alternate label to preferred label and recommends all found entitites for disambiguation and reconciliation.
 
 
 REST-API (Open Refine Reconciliation Service API standard)
 ----------------------------------------------------------
 
 The Entity Linker based Named Entity Linking and Normalization REST-API in entity_rest_api provides normalized entities in Open Refine Reconciliation API standard result format (Specification: https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API).
+
+
+Named Entity Extraction from full-text
+--------------------------------------
 
 Additional to the specified Open Refine Reconciliation API query parameters, you can POST a full text / context additionally or instead of entity queries of yet extracted entities or strucutred data field with entities (which in other Open Refine Reconciliation Service APIs are required), so the context will not only used for disambiguation scoring but entities will be extracted automatically from the text.
 
@@ -113,6 +117,7 @@ The component dictionary extracts named entities by dictionaries/lists of names
 
 Dictionary matcher
 ------------------
+
 Apache Lucene/Solr powered dictionary based named entity extaction is done by Dictionary_Matcher in dictionary/matcher.py
 
 Example:
@@ -121,7 +126,8 @@ Example:
 from dictionary.matcher import Dictionary_Matcher
 
 dictionary_matcher = Dictionary_Matcher()
-matches = dictionary_matcher.matches(text="Mr. Jon Doe lives in Berlin.")
+
+matches = dictionary_matcher.matches( text = "Mr. Jon Doe lives in Berlin." )
 
 print (matches)
 
@@ -130,6 +136,7 @@ print (matches)
 
 Dictionary manager
 ------------------
+
 For managing dictionaries like lists of names the Dictionary_Manager in dictionary/manager.py is used.
 
 Example:
@@ -139,7 +146,7 @@ from dictionary.manager import Dictionary_Manager
 
 dictionary_manager = Dictionary_Manager()
 
-dictionary_manager.create_dictionary(dict_id = 'myDictionary', dict_filename = 'named_entities.txt')
+dictionary_manager.create_dictionary( dict_id = 'myDictionary', dict_filename = 'named_entities.txt' )
 ```
 
 
