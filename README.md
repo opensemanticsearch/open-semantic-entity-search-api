@@ -115,10 +115,32 @@ Dictionary matcher
 ------------------
 Apache Lucene/Solr powered dictionary based named entity extaction is done by Dictionary_Matcher in dictionary/matcher.py
 
+Example:
+
+```
+from dictionary.matcher import Dictionary_Matcher
+
+dictionary_matcher = Dictionary_Matcher()
+matches = dictionary_matcher.matches(text="Mr. Jon Doe lives in Berlin.")
+
+print (matches)
+
+```
+
 
 Dictionary manager
 ------------------
 For managing dictionaries like lists of names the Dictionary_Manager in dictionary/manager.py is used.
+
+Example:
+
+```
+from dictionary.manager import Dictionary_Manager
+
+dictionary_manager = Dictionary_Manager()
+
+dictionary_manager.create_dictionary(dict_id = 'myDictionary', dict_filename = 'named_entities.txt')
+```
 
 
 Import named entities
