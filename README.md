@@ -3,7 +3,7 @@ Open Source REST-API for Named Entity Extraction, Normalization, Reconciliation,
 
 https://opensemanticsearch.org/doc/datamanagement/named_entity_recognition
 
-REST API and Python library for search, suggestion, recommendation, normalization, reconciliation, named entity extraction, named entity linking & named entity disambiguation of named entities like persons, organizations and places for (semi)automatic semantic tagging & analysis of documents by linked data knowledge graph like SKOS thesaurus, Wikidata or RDF ontologies, SQL database(s) or spreadsheets like CSV, TSV or Excel table(s).
+REST API and Python library for search, suggestion, recommendation, normalization, reconciliation, named entity extraction, named entity linking & named entity disambiguation of named entities like persons, organizations and places for (semi)automatic semantic tagging, analysis & semantic enrichment of documents by linked data knowledge graph like SKOS thesaurus, Wikidata or RDF ontologies, SQL database(s) or spreadsheets like CSV, TSV or Excel table(s).
 
 
 Open Source and Open Standards
@@ -89,7 +89,7 @@ Each result consists of a JSON literal object with the structure
 Entity Linker, Recommender and Normalizer (Python library)
 ----------------------------------------------------------
 
-Python and Dictionary Matcher based and Apache Solr search index powered Library Entity_Linker from the library entity_linking for Entity Linking and Normalization.
+Therefore the REST-API uses the Python and Dictionary Matcher based and Apache Solr search index powered module Entity_Linker from the library entity_linking for Entity Linking and Normalization.
 
 Example:
 
@@ -112,7 +112,7 @@ print (results)
 Dictionary based Named Entity Extraction
 ========================================
 
-The component dictionary extracts named entities by dictionaries/lists of names
+For extraction of named entities from full-text the Entity Linker uses the module dictionary matcher, which extracts named entities by dictionaries/lists of names
 
 
 Dictionary matcher
