@@ -8,7 +8,7 @@ import json
 class Dictionary_Manager(object):
 
 	solr = 'http://localhost:8983/solr/'
-	solr_core = 'core1-dictionary'
+	solr_core = 'opensemanticsearch-entities'
 
 	def dictionary_exists(self, dict_id):
 		

@@ -14,7 +14,7 @@ from opensemanticetl import export_solr
 class Dictionary_Matcher(object):
 
 	solr = 'http://localhost:8983/solr/'
-	solr_core = 'core1-dictionary'
+	solr_core = 'opensemanticsearch-entities'
 
 
 	def get_dictionaries(self):
@@ -42,7 +42,7 @@ class Dictionary_Matcher(object):
 			dict_ids = self.get_dictionaries()
 
 		hash = hashlib.sha256(text.encode('utf-8'))
-		docid = hash.hexdigest()
+		docid = 'sha256_' + hash.hexdigest()
 
 		solr = export_solr.export_solr(solr = self.solr, core = self.solr_core)
 

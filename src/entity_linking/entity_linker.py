@@ -18,7 +18,7 @@ from dictionary.matcher import Dictionary_Matcher
 class Entity_Linker(object):
 
 	solr = 'http://localhost:8983/solr/'
-	solr_core = 'core1-dictionary'
+	solr_core = 'opensemanticsearch-entities'
 	
 	fields = ['id', 'score', 'label_ss', 'preferred_label_s', 'skos_prefLabel_ss', 'skos_altLabel_ss', 'skos_hiddenLabel_ss']
 
