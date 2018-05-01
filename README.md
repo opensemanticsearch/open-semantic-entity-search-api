@@ -9,7 +9,7 @@ REST API and Python library for search, suggestion, recommendation, normalizatio
 Open Source and Open Standards
 ==============================
 
-By integration of Open Standards for structured data formats (SKOS, RDF, JSON) and REST APIs (HTTP, REST) and entity linking/disambiguation/reconciliation (Open Refine Reconciliation Service API) and Open Source tools for natural language processing and text analytics this Free Software provides an Open Refine Reconciliation Service API (extended with automatic entity extraction, so you can post a full text instead of entity queries) for your own SKOS thesaurus, RDF ontologies and lists of names from lists, spreadseheets or databases as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
+By integration of Open Standards for structured data formats (SKOS, RDF, JSON) and REST APIs (HTTP, REST) and entity linking/disambiguation/reconciliation (Open Refine Reconciliation Service API) and Open Source tools for natural language processing and text analytics this Free Software provides an Open Refine Reconciliation Service API (extended with automatic entity extraction, so you can post a full text instead of entity queries) for your own SKOS thesaurus, RDF ontologies and lists of names from lists, spreadsheets or databases as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
 
 
 Usage
@@ -187,7 +187,22 @@ https://opensemanticsearch.org/doc/datamanagement/opendata/wikidata
 Import named entities from SQL database(s)
 ------------------------------------------
 
-Until implementation of the SQL database importer command line tool and UI to import named entities from database(s), that are not available as SKOS thesaurus or RDF ontology and can be imported by the other user interfaces, add a dictionary of all viariants of labels by Dictionary Manager and index them to the Solr search index using the field name "id" for the ID or URI, "preferred_label_s" for the normalized name / preferred label and "label_ss" or "skos_altLabel_ss" with all aliases or alternate labels/names.
+Until implementation of the SQL database importer command line tool and UI to import named entities from database(s), that are not available as SKOS thesaurus or RDF ontology and can be imported by the other user interfaces, 
+use the Open Semantic Entity Search API module Entity Manager.
+
+
+Entity Manager (Python API)
+---------------------------
+
+To add a named entity to the entities index and dictionary use the method add() with the parameter "id" for the unique ID, URI or URL, "preferred_label" for the normalized name / preferred label and "prefLabels" (higher score) and/or "labels" with all aliases or alternate labels/names.
+
+```
+from entity_manager.manager import Entity_Manager
+
+entity_manager = Entity_Manager()
+    
+entity_manager.add( id = "https://entities/1", preferred_label = "Jon Doe", prefLabels = ["Jon Doe"], labels = ["J. Doe", "Doe, Jon", "Doe, J."] )
+```
 
 
 Rich document formats
