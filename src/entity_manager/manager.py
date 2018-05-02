@@ -49,7 +49,7 @@ class Entity_Manager(object):
 		
 		# post to Solr index of entities for Normalization and Entity Linking
 		self.connector.solr = self.solr
-		self.connector.solr_core = self.solr_core
+		self.connector.core = self.solr_core
 		self.connector.post(data=data, commit=True)
 
 		# append to dictionary file for Entity Extraction
@@ -68,7 +68,7 @@ class Entity_Manager(object):
 		# if synonyms, append to synoynms config file
 		if self.solr_core_synonyms and len(dictionary_labels) > 1:
 			self.connector.solr = self.solr_synonyms
-			self.connector.solr_core = self.solr_core_synonyms
+			self.connector.core = self.solr_core_synonyms
 
 			self.connector.append_synonyms(resourceid='skos', label=dictionary_labels[0], synonyms=dictionary_labels[1:])
 	
