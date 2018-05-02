@@ -9,12 +9,14 @@ class Entity_Manager(object):
 
 	solr = 'http://localhost:8983/solr/'
 	solr_core = 'opensemanticsearch-entities'
+
+	solr_synonyms = 'http://localhost:8983/solr/'
+	solr_core_synonyms = 'opensemanticsearch'
+
 	solr_dictionary_config_path = "/var/solr/data/opensemanticsearch-entities/conf/entities"
 	wordlist_configfilename = "/etc/opensemanticsearch/ocr/dictionary.txt"
 	
 	connector = opensemanticetl.export_solr.export_solr()
-	connector.solr = solr
-	connector.core = solr_core
 	
 	def add(self, id, preferred_label=None, prefLabels=[], labels=[], dictionary="skos", facet_dictionary_is_tempfile=False):
 
@@ -46,6 +48,8 @@ class Entity_Manager(object):
 			data['label_ss'].append(label)
 		
 		# post to Solr index of entities for Normalization and Entity Linking
+		self.connector.solr = self.solr
+		self.connector.solr_core = self.solr_core
 		self.connector.post(data=data, commit=True)
 
 		# append to dictionary file for Entity Extraction
@@ -62,6 +66,9 @@ class Entity_Manager(object):
 		dict_file.close()
 				
 		# if synonyms, append to synoynms config file
-		if len(dictionary_labels) > 1:
+		if self.solr_core_synonyms and len(dictionary_labels) > 1:
+			self.connector.solr = self.solr_synonyms
+			self.connector.solr_core = self.solr_core_synonyms
+
 			self.connector.append_synonyms(resourceid='skos', label=dictionary_labels[0], synonyms=dictionary_labels[1:])
 	
