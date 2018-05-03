@@ -43,12 +43,14 @@ class Entity_Manager(object):
 		
 		data['skos_prefLabel_ss'] = []
 		for label in prefLabels:
-			dictionary_labels.append(label)
+			if not label in dictionary_labels:
+				dictionary_labels.append(label)
 			data['skos_prefLabel_ss'].append(label)
 
 		data['label_ss'] = []
 		for label in labels:
-			dictionary_labels.append(label)
+			if not label in dictionary_labels:
+				dictionary_labels.append(label)
 			data['label_ss'].append(label)
 		
 		# post to Solr index of entities for Normalization and Entity Linking
