@@ -204,6 +204,41 @@ Until implementation of the SQL database importer command line tool and UI to im
 use the module Entity Manager.
 
 
+Import named entities from lists / plain text files
+---------------------------------------------------
+
+How to import lists of names from plain text files with one name per line:
+
+
+Web User Interface:
+
+The web user interface Ontologies Manager can not only import RDF ontologies, but also lists of names from plain text files
+https://opensemanticsearch.org/doc/datamanagement/ontologies
+
+Data format (Example: politicians.txt):
+```
+Barack Obama
+Vladimir Putin
+Angela Merkel
+```
+
+Command line tool:
+
+```
+entity_import_list.py politicians.txt --type Politician
+```
+
+Python:
+
+```
+from entity_import.entity_import_list import Entity_Importer_List
+
+list_importer = Entity_Importer_List()
+
+list_importer.import_entities(filename="polititians.txt, types=['Person','Politician'])
+```
+
+
 Rich document formats
 =====================
 
