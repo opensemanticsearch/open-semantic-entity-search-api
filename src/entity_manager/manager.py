@@ -15,10 +15,13 @@ class Entity_Manager(object):
 
 	solr_dictionary_config_path = "/var/solr/data/opensemanticsearch-entities/conf/entities"
 	wordlist_configfilename = "/etc/opensemanticsearch/ocr/dictionary.txt"
+
+	verbose = False
 	
 	connector = opensemanticetl.export_solr.export_solr()
+	connector.verbose = verbose
 	
-	def add(self, id, preferred_label=None, prefLabels=[], labels=[], dictionary="skos", facet_dictionary_is_tempfile=False):
+	def add(self, id, preferred_label=None, prefLabels=[], labels=[], types=[], dictionary="skos", facet_dictionary_is_tempfile=False):
 
 		dictionary_labels = []
 
@@ -34,7 +37,8 @@ class Entity_Manager(object):
 
 		data = {
 			'id': id,
-			'preferred_label_s': preferred_label
+			'preferred_label_s': preferred_label,
+			'type_ss': types,
 		}
 		
 		data['skos_prefLabel_ss'] = []

@@ -15,7 +15,7 @@ By integration of Open Standards for structured data formats (SKOS, RDF, JSON) a
 Usage
 =====
 
-After configuration (see section "Web User Interfaces (UI) for configuration and management of named entities") of your named entities from ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the REST API with a plain text / full-text (or even document files like PDF or Word, see section "Rich document formats") as parameter (see section "REST API request parameters") to extract and/or recommend Named Entities like persons, organizations or places and link them (see section "JSON response") to your Linked Data Knowledge Graph, Linked Open Data and Semantic Web.
+After configuration (see section "Web User Interfaces (UI) for configuration and management of named entities") of your named entities from ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the REST API with a plain text / full-text (or even document files like PDF or Word, see section "Rich document formats") as parameter (see section "REST API request parameters") to extract and/or recommend Named Entities like persons, organizations or places and link them (see section "JSON response") in/to your Linked Data Knowledge Graph Database, Linked Open Data and Semantic Web.
 
 
 Named Entity Linking, Normalization and Disambiguation
@@ -153,6 +153,19 @@ dictionary_manager.create_dictionary( dict_id = 'myDictionary', dict_filename = 
 Import named entities
 =====================
 
+Entity Manager (Python API)
+---------------------------
+
+To add a named entity to the entities index and dictionary use the method add() with the parameter "id" for the unique ID, URI or URL, "preferred_label" for the normalized name / preferred label and "prefLabels" (higher score) and/or "labels" with all aliases or alternate labels/names.
+
+```
+from entity_manager.manager import Entity_Manager
+
+entity_manager = Entity_Manager()
+    
+entity_manager.add( id = "https://entities/1", types=['Person'], preferred_label = "Jon Doe", prefLabels = ["Jon Doe"], labels = ["J. Doe", "Doe, Jon", "Doe, J."] )
+```
+
 
 Web User Interfaces (UI) for configuration and management of named entities
 ---------------------------------------------------------------------------
@@ -188,21 +201,7 @@ Import named entities from SQL database(s)
 ------------------------------------------
 
 Until implementation of the SQL database importer command line tool and UI to import named entities from database(s), that are not available as SKOS thesaurus or RDF ontology and can be imported by the other user interfaces, 
-use the Open Semantic Entity Search API module Entity Manager.
-
-
-Entity Manager (Python API)
----------------------------
-
-To add a named entity to the entities index and dictionary use the method add() with the parameter "id" for the unique ID, URI or URL, "preferred_label" for the normalized name / preferred label and "prefLabels" (higher score) and/or "labels" with all aliases or alternate labels/names.
-
-```
-from entity_manager.manager import Entity_Manager
-
-entity_manager = Entity_Manager()
-    
-entity_manager.add( id = "https://entities/1", preferred_label = "Jon Doe", prefLabels = ["Jon Doe"], labels = ["J. Doe", "Doe, Jon", "Doe, J."] )
-```
+use the module Entity Manager.
 
 
 Rich document formats

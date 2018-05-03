@@ -20,13 +20,19 @@ class Entity_Linker(object):
 	solr = 'http://localhost:8983/solr/'
 	solr_core = 'opensemanticsearch-entities'
 	
-	fields = ['id', 'score', 'label_ss', 'preferred_label_s', 'skos_prefLabel_ss', 'skos_altLabel_ss', 'skos_hiddenLabel_ss']
+	fields = ['id', 'score', 'type_ss', 'label_ss', 'preferred_label_s', 'skos_prefLabel_ss', 'skos_altLabel_ss', 'skos_hiddenLabel_ss']
+
+	verbose = False
 
 	def dictionary_matches(self, text):
 		
 		queries = {}
 		dictionary_matcher = Dictionary_Matcher()
 		matches = dictionary_matcher.matches(text=text)
+
+		if self.verbose:
+			print("Dictionary matfches: {}".format(matches))
+
 		for dict in matches:
 			for match in matches[dict]:
 				queries[match] = {'query': match}
@@ -60,6 +66,10 @@ class Entity_Linker(object):
 				params['rows'] = limit
 			
 			r = requests.get(self.solr + self.solr_core + '/select', params=params, headers=headers)
+
+			if self.verbose:
+				print ("Enity linker Solr result: {}".format(r.text))
+
 			search_results = r.json()
 
 			normalized_entities[query]={}
@@ -89,6 +99,10 @@ class Entity_Linker(object):
 				if not label:
 					label = search_result['id']
 
+				types = []
+				if 'type_ss' in search_result:
+					types = search_result['type_ss']
+
 				match = False
 				for field in self.fields:
 					if field in search_result:
@@ -107,7 +121,7 @@ class Entity_Linker(object):
 					'name': label,
 					'score': search_result['score'],
 					'match': match,
-					'type': [],
+					'type': types,
 				}
 				
 				results.append(result)
