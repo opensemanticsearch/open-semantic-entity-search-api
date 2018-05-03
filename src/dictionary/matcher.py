@@ -48,7 +48,8 @@ class Dictionary_Matcher(object):
 
 		data = {}
 		data['id'] = docid
-		data['text_txt'] = text
+		# content of this field will be analyzed by dictionary matchers but not indexed (setup in preconfigured Solr schema for better performance)
+		data['do_not_index_txt'] = text
 		
 		solr.post(data=data, commit=True)
 
