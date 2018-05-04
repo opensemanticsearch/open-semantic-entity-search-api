@@ -44,6 +44,7 @@ class Entity_Manager(object):
 		data = {
 			'id': id,
 			'preferred_label_s': preferred_label,
+			'preferred_label_txt': preferred_label,
 			'type_ss': types,
 		}
 		
@@ -52,12 +53,14 @@ class Entity_Manager(object):
 			if not label in dictionary_labels:
 				dictionary_labels.append(label)
 			data['skos_prefLabel_ss'].append(label)
+		data['skos_prefLabel_txt'] = data['skos_prefLabel_ss']
 
 		data['label_ss'] = []
 		for label in labels:
 			if not label in dictionary_labels:
 				dictionary_labels.append(label)
 			data['label_ss'].append(label)
+		data['label_txt'] = data['label_ss']
 		
 		# post to Solr index of entities for Normalization and Entity Linking
 		self.connector.solr = self.solr

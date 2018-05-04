@@ -20,7 +20,20 @@ class Entity_Linker(object):
 	solr = 'http://localhost:8983/solr/'
 	solr_core = 'opensemanticsearch-entities'
 	
-	fields = ['id', 'score', 'type_ss', 'label_ss', 'preferred_label_s', 'skos_prefLabel_ss', 'skos_altLabel_ss', 'skos_hiddenLabel_ss']
+	fields = [	'id',
+				'score',
+				'type_ss',
+				'label_ss',
+				'label_txt',
+				'preferred_label_s',
+				'preferred_label_txt',
+				'skos_prefLabel_ss',
+				'skos_prefLabel_txt',
+				'skos_altLabel_ss',
+				'skos_altLabel_txt',
+				'skos_hiddenLabel_ss',
+				'skos_hiddenLabel_txt'
+	]
 
 	verbose = False
 
@@ -55,7 +68,16 @@ class Entity_Linker(object):
 			params = {
 				'wt': 'json',
 				'defType': 'edismax',
-				'qf': ['label_ss', 'preferred_label_s^10', 'skos_prefLabel_ss^10', 'skos_altLabel_ss','skos_hiddenLabel_ss'],
+				'qf': [	'label_ss',
+						'preferred_label_s^10',
+						'preferred_label_txt^5',
+						'skos_prefLabel_ss^10',
+						'skos_prefLabel_txt^5',
+						'skos_altLabel_ss^2',
+						'skos_altLabel_txt',
+						'skos_hiddenLabel_ss^2',
+						'skos_hiddenLabel_txt',
+				],
 				'fl': self.fields,
 				'q': "\"" + queries[query]['query'] + "\"",
 			}
