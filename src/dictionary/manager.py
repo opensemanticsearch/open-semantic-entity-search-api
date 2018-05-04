@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 #
 # Management of dictionaries in Solr schema
@@ -9,9 +10,11 @@ class Dictionary_Manager(object):
 
 	solr = 'http://localhost:8983/solr/'
 	solr_core = 'opensemanticsearch-entities'
-		
+	solr_dictionary_config_path = "/var/solr/data/opensemanticsearch-entities/conf/entities"
+
 	dictionaries = []
 
+	verbose = False
 
 	def dictionary_exists(self, dict_id):
 		
@@ -26,9 +29,21 @@ class Dictionary_Manager(object):
 			return False
 
 
-	def create_dictionary(self, dict_id, dict_filename):
+	def create_dictionary(self, dict_id, dict_filename=None):
 
 		if not self.dictionary_exists(dict_id):
+			
+			if self.verbose:
+				print("Dictionary not exists yet: {}".format(dict_id))
+
+			if not dict_filename:
+				dict_filename = dict_id + ".txt"
+
+			# create dictionary file
+			if self.verbose:
+				print ("Creating dictionary file {} if not yet exist".format(dict_filename))
+			dict_file = open(self.solr_dictionary_config_path + os.path.sep + dict_filename, 'a', encoding="UTF-8")
+			dict_file.close()
 	
 			api = self.solr + self.solr_core + '/schema'
 			headers = {'content-type' : 'application/json'}
@@ -57,7 +72,7 @@ class Dictionary_Manager(object):
 							{
 								"class": "solr.KeepWordFilterFactory",
 								"ignoreCase": "true",
-								"words": dict_filename
+								"words": 'entities/' + dict_filename
 							}
 						]
 					}

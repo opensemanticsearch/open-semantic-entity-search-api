@@ -1,5 +1,7 @@
 import opensemanticetl.export_solr
 import os
+from dictionary.manager import Dictionary_Manager
+
 
 #
 # Management of entities in Solr index
@@ -13,15 +15,19 @@ class Entity_Manager(object):
 	solr_synonyms = 'http://localhost:8983/solr/'
 	solr_core_synonyms = 'opensemanticsearch'
 
-	solr_dictionary_config_path = "/var/solr/data/opensemanticsearch-entities/conf/entities"
 	wordlist_configfilename = "/etc/opensemanticsearch/ocr/dictionary.txt"
 
 	verbose = False
 	
 	connector = opensemanticetl.export_solr.export_solr()
 	connector.verbose = verbose
+	dictionary_manager = Dictionary_Manager()
+	
 	
 	def add(self, id, preferred_label=None, prefLabels=[], labels=[], types=[], dictionary="skos", facet_dictionary_is_tempfile=False):
+
+		# create dictionary, if not yet exists
+		self.dictionary_manager.create_dictionary( dict_id = dictionary )
 
 		dictionary_labels = []
 
@@ -60,9 +66,9 @@ class Entity_Manager(object):
 
 		# append to dictionary file for Entity Extraction
 		if facet_dictionary_is_tempfile:
-			dict_filename = self.solr_dictionary_config_path + os.path.sep + 'tmp_' + dictionary + '.txt'
+			dict_filename = self.dictionary_manager.solr_dictionary_config_path + os.path.sep + 'tmp_' + dictionary + '.txt'
 		else:
-			dict_filename = self.solr_dictionary_config_path + os.path.sep + dictionary + '.txt'
+			dict_filename = self.dictionary_manager.solr_dictionary_config_path + os.path.sep + dictionary + '.txt'
 		
 		dict_file = open(dict_filename, 'a', encoding="UTF-8")
 	
