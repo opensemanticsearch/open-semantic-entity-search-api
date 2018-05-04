@@ -9,11 +9,19 @@ class Dictionary_Manager(object):
 
 	solr = 'http://localhost:8983/solr/'
 	solr_core = 'opensemanticsearch-entities'
+		
+	dictionaries = []
+
 
 	def dictionary_exists(self, dict_id):
 		
-		if solr_is_field(self.solr, self.solr_core, dict_id):
+		if dict_id in self.dictionaries:
 			return True
+		
+		elif solr_is_field(self.solr, self.solr_core, dict_id):
+			self.dictionaries.append(dict_id)
+			return True
+		
 		else:
 			return False
 
