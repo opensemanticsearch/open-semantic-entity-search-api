@@ -60,7 +60,7 @@ class Dictionary_Manager(object):
 					{
 						"tokenizer":
 							{
-								"class":"solr.WhitespaceTokenizerFactory",
+								"class":"solr.StandardTokenizerFactory",
 							},
 						"filters":[
 							{
