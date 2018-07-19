@@ -53,6 +53,8 @@ class Entity_Manager(object):
 			if not label in dictionary_labels:
 				dictionary_labels.append(label)
 			data['skos_prefLabel_ss'].append(label)
+		if not len(prefLabels):
+			data['skos_prefLabel_ss'] = [preferred_label]
 		data['skos_prefLabel_txt'] = data['skos_prefLabel_ss']
 
 		data['label_ss'] = []
