@@ -34,10 +34,10 @@ class Entity_Manager(object):
 		if preferred_label:
 			dictionary_labels.append(preferred_label)
 		else:
-			if len(pref_Labels):
-				preferred_label = pref_Lables[0]
+			if len(prefLabels):
+				preferred_label = prefLabels[0]
 			elif len(labels):
-				preferred_label = lables[0]
+				preferred_label = labels[0]
 			else:
 				preferred_label = id
 
