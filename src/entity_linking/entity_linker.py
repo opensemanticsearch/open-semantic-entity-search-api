@@ -69,6 +69,7 @@ class Entity_Linker(object):
 				'wt': 'json',
 				'defType': 'edismax',
 				'qf': [	'label_ss',
+						'label_txt',
 						'preferred_label_s^10',
 						'preferred_label_txt^5',
 						'skos_prefLabel_ss^10',
