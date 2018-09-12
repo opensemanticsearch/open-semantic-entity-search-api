@@ -2,6 +2,7 @@ import requests
 import json
 import hashlib
 import pysolr
+import sys
 from opensemanticetl import export_solr
 
 #
@@ -44,7 +45,7 @@ class Dictionary_Matcher(object):
 		hash = hashlib.sha256(text.encode('utf-8'))
 		docid = 'sha256_' + hash.hexdigest()
 
-		solr = export_solr.export_solr(solr = self.solr, core = self.solr_core)
+		solr = export_solr.export_solr( config = {'solr': self.solr, 'index': self.solr_core} )
 
 		data = {}
 		data['id'] = docid
@@ -67,6 +68,9 @@ class Dictionary_Matcher(object):
 		
 		r = requests.get(self.solr + self.solr_core + '/select', params=params, headers=headers)
 		result = r.json()
+		
+		if not result['response']['numFound'] == 1:
+			sys.stderr.write( "Named entity extraction: Error while indexing to Solr named entities index  {}\n".format(docid) )
 		
 		for dict_id in dict_ids:
 			if dict_id in result['facet_counts']['facet_fields']:
