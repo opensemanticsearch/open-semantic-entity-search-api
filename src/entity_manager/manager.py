@@ -29,6 +29,7 @@ class Entity_Manager(object):
 		# create dictionary, if not yet exists
 		self.dictionary_manager.create_dictionary( dict_id = dictionary )
 
+		# all labels
 		dictionary_labels = []
 
 		if preferred_label:
@@ -61,6 +62,8 @@ class Entity_Manager(object):
 				dictionary_labels.append(label)
 			data['label_ss'].append(label)
 		data['label_txt'] = data['label_ss']
+
+		data['all_labels_ss'] = dictionary_labels
 		
 		# post to Solr index of entities for Normalization and Entity Linking
 		self.connector.solr = self.solr
