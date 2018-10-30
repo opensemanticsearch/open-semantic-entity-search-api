@@ -13,16 +13,11 @@ class Entity_Importer_List(object):
     # defaults
     verbose = False
 
-    def import_entities(self, filename, types=[], dictionary=None, facet_dictionary_is_tempfile=False, encoding="utf-8"):
+    def import_entities(self, filename, types=[], encoding="utf-8"):
 
         entity_manager = Entity_Manager()
         entity_manager.verbose = self.verbose
         
-        if not dictionary:
-            dictionary=types[0]
-        if not dictionary:
-            dictionary=filename
-
         # open and read plaintext file line for line
     
         file = open(filename, encoding=encoding)
@@ -36,7 +31,7 @@ class Entity_Importer_List(object):
                 if self.verbose:
                     print ("Import entity {}".format(value))
     
-                entity_manager.add(id=value, types=types, preferred_label=value, prefLabels=[value], dictionary=dictionary, facet_dictionary_is_tempfile=facet_dictionary_is_tempfile)
+                entity_manager.add(id=value, types=types, preferred_label=value, prefLabels=[value])
 
 
         file.close()
@@ -55,7 +50,6 @@ if __name__ == "__main__":
 
     parser = OptionParser("entity_import_list filename")
     parser.add_option("-t", "--type", dest="types", default=None, help="Type of the entities")
-    parser.add_option("-d", "--dictionary", dest="dictionary", default=None, help="Dictionary / Facet")
     parser.add_option("-v", "--verbose", dest="verbose", action="store_true", default=None, help="Print debug messages")
 
     (options, args) = parser.parse_args()
@@ -76,4 +70,4 @@ if __name__ == "__main__":
         types=[filename]
 
     # import list of entities
-    importer.import_entities(filename=filename, dictionary=options.dictionary, types=types)
+    importer.import_entities(filename=filename, types=types)
