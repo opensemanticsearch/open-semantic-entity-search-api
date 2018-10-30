@@ -226,8 +226,6 @@ Python 3.x
 Apache Solr >= 7.4
 https://lucene.apache.org/solr/ (preconfigured in Git repository https://github.com/opensemanticsearch/solr.deb)
 
-PySolr
-
 Open Semantic ETL
 https://opensemanticsearch.org/etl (Git repository: https://github.com/opensemanticsearch/open-semantic-etl)
 
