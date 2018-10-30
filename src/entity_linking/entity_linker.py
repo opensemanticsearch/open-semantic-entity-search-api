@@ -150,7 +150,7 @@ class Entity_Linker(object):
 		if limit:
 			url += '&tagsLimit=' + str(limit)
 
-		r = requests.post(url, data=text)
+		r = requests.post(url, data=text.encode('utf-8'))
 
 		if self.verbose:
 			print ("Entity linking / Solr Text Tagger result: {}".format(r.text))
