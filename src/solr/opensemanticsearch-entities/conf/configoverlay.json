@@ -1,0 +1,4 @@
+{"requestHandler":{"/all_labels_ss_tag":{
+      "name":"/all_labels_ss_tag",
+      "class":"solr.TaggerRequestHandler",
+      "defaults":{"field":"all_labels_ss_tag"}}}}
