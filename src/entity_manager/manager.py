@@ -22,7 +22,7 @@ class Entity_Manager(object):
 	connector.verbose = verbose
 	
 	
-	def add(self, id, preferred_label=None, prefLabels=[], labels=[], types=[], dictionary="skos"):
+	def add(self, id, preferred_label=None, prefLabels=[], labels=[], types=[]):
 
 		# all labels
 		dictionary_labels = []
