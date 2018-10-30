@@ -1,6 +1,5 @@
 import requests
 import json
-from dictionary.matcher import Dictionary_Matcher
 
 #
 # Named Entity Linking, Disambiguation and Normalization by Named Entities in Solr search index
@@ -37,29 +36,13 @@ class Entity_Linker(object):
 
 	verbose = False
 
-	def dictionary_matches(self, text):
-		
-		queries = {}
-		dictionary_matcher = Dictionary_Matcher()
-		matches = dictionary_matcher.matches(text=text)
 
-		if self.verbose:
-			print("Dictionary matfches: {}".format(matches))
-
-		for dict in matches:
-			for match in matches[dict]:
-				queries[match] = {'query': match}
-
-		return queries
-
-
-	def entities(self, queries=None, language=None, normalized_label_languages=['en'], text = None, limit=10000):
+	#
+	# search entities by queries in entities index
+	#
+	def query_entities(self, queries, language=None, normalized_label_languages=['en'], text = None, limit=10000):
 
 		normalized_entities = {}
-
-		# if no entities queries, match entities from dictionary of labels from thesaurus, ontologies, databases and lists
-		if not queries:
-			queries = self.dictionary_matches(text=text)
 
 		headers = {'content-type' : 'application/json'}
 
@@ -149,5 +132,78 @@ class Entity_Linker(object):
 				results.append(result)
 				
 			normalized_entities[query]['result'] = results
+
+		return normalized_entities
+
+
+	#
+	# Extract entities from full text by matching labels in entity index
+	# Extraction / tagging of labels in full text by Solr Text Tagger https://lucene.apache.org/solr/guide/7_4/the-tagger-handler.html
+	#
+
+	def dictionary_matcher(self, text, language=None, normalized_label_languages=['en'], limit=10000):
+
+		normalized_entities = {}
+
+		url = self.solr + self.solr_core + '/all_labels_ss_tag?matchText=true&overlaps=NO_SUB&fl=id,type_ss,preferred_label_s,skos_prefLabel_ss,label_ss,skos_altLabel_ss&wt=json'
+
+		if limit:
+			url += '&tagsLimit=' + str(limit)
+
+		r = requests.post(url, data=text)
+
+		if self.verbose:
+			print ("Entity linking / Solr Text Tagger result: {}".format(r.text))
+		
+		matches = r.json()
+
+		i = 0
+		for entity in matches['response']['docs']:
+
+			label = None
+
+			if 'preferred_label_s' in entity:
+				label = entity['preferred_label_s']
+
+			if not label:
+				if 'skos_prefLabel_ss' in entity:
+					label = entity['skos_prefLabel_ss'][0]
+
+			if not label:
+				if 'label_ss' in entity:
+					label = entity['label_ss'][0]
+
+			if not label:
+				if 'skos_altLabel_ss' in entity:
+					label = entity['skos_altLabel_ss'][0]
+
+			if not label:
+				label = entity['id']
+
+			types = []
+			if 'type_ss' in entity:
+				types = entity['type_ss']
+			
+			result = {
+				'id': entity['id'],
+				'name': label,
+				'match': True,
+				'type': types,
+			}
+
+			normalized_entities[entity['id']] = {}						
+			normalized_entities[entity['id']]['result'] = [result]
+
+		return normalized_entities
+
+
+	def entities(self, queries=None, language=None, normalized_label_languages=['en'], text = None, limit=10000):
+
+		# if no entities queries, match entities from dictionary of labels from thesaurus, ontologies, databases and lists
+		if queries:
+			normalized_entities = self.query_entities(queries, language=language, normalized_label_languages=normalized_label_languages, text=text, limit=limit)
+			
+		else:
+			normalized_entities = self.dictionary_matcher(text=text, language=language, normalized_label_languages=normalized_label_languages, limit=limit)
 
 		return normalized_entities

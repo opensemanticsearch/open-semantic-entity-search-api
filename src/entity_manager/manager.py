@@ -1,6 +1,5 @@
 import opensemanticetl.export_solr
 import os
-from dictionary.manager import Dictionary_Manager
 
 
 #
@@ -21,13 +20,9 @@ class Entity_Manager(object):
 	
 	connector = opensemanticetl.export_solr.export_solr()
 	connector.verbose = verbose
-	dictionary_manager = Dictionary_Manager()
 	
 	
-	def add(self, id, preferred_label=None, prefLabels=[], labels=[], types=[], dictionary="skos", facet_dictionary_is_tempfile=False):
-
-		# create dictionary, if not yet exists
-		self.dictionary_manager.create_dictionary( dict_id = dictionary )
+	def add(self, id, preferred_label=None, prefLabels=[], labels=[], types=[], dictionary="skos"):
 
 		# all labels
 		dictionary_labels = []
@@ -69,19 +64,6 @@ class Entity_Manager(object):
 		self.connector.solr = self.solr
 		self.connector.core = self.solr_core
 		self.connector.post(data=data, commit=True)
-
-		# append to dictionary file for Entity Extraction
-		if facet_dictionary_is_tempfile:
-			dict_filename = self.dictionary_manager.solr_dictionary_config_path + os.path.sep + 'tmp_' + dictionary + '.txt'
-		else:
-			dict_filename = self.dictionary_manager.solr_dictionary_config_path + os.path.sep + dictionary + '.txt'
-		
-		dict_file = open(dict_filename, 'a', encoding="UTF-8")
-	
-		for label in dictionary_labels:
-			dict_file.write(label + "\n")
-	
-		dict_file.close()
 				
 		# if synonyms, append to synoynms config file
 		if self.solr_core_synonyms and len(dictionary_labels) > 1:

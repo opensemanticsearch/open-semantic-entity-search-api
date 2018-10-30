@@ -112,42 +112,13 @@ print (results)
 Dictionary based Named Entity Extraction
 ========================================
 
-For extraction of named entities from full-text the Entity Linker uses the module dictionary matcher, which extracts named entities by dictionaries/lists of names
+For extraction of named entities from full-text the Entity Linker extracts named entities by dictionaries / lists of names / labels stored in the Solr index / core for named entities.
 
 
-Dictionary matcher
-------------------
+Dictionary matcher (FST)
+------------------------
 
-Apache Lucene/Solr powered dictionary based named entity extaction is done by Dictionary_Matcher in dictionary/matcher.py
-
-Example:
-
-```
-from dictionary.matcher import Dictionary_Matcher
-
-dictionary_matcher = Dictionary_Matcher()
-
-matches = dictionary_matcher.matches( text = "Mr. Jon Doe lives in Berlin." )
-
-print (matches)
-
-```
-
-
-Dictionary manager
-------------------
-
-For managing dictionaries like lists of names the Dictionary_Manager in dictionary/manager.py is used.
-
-Example:
-
-```
-from dictionary.manager import Dictionary_Manager
-
-dictionary_manager = Dictionary_Manager()
-
-dictionary_manager.create_dictionary( dict_id = 'myDictionary', dict_filename = 'named_entities.txt' )
-```
+Apache Lucene/Solr powered dictionary based named entity extraction of indexed names and labels in the full text is done by Solr Text Tagger https://lucene.apache.org/solr/guide/7_4/the-tagger-handler.html by Finite State Transducer (FST) algorithm.
 
 
 Import named entities
@@ -235,7 +206,7 @@ from entity_import.entity_import_list import Entity_Importer_List
 
 list_importer = Entity_Importer_List()
 
-list_importer.import_entities(filename="polititians.txt, types=['Person','Politician'])
+list_importer.import_entities(filename="polititians.txt", types=['Person','Politician'])
 ```
 
 
@@ -252,7 +223,7 @@ If you do not want to use the preconfigured Debian packages providing all compon
 
 Python 3.x
 
-Apache Solr 7.x
+Apache Solr >= 7.4
 https://lucene.apache.org/solr/ (preconfigured in Git repository https://github.com/opensemanticsearch/solr.deb)
 
 PySolr
