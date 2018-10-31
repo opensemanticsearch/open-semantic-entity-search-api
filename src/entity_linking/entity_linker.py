@@ -40,7 +40,7 @@ class Entity_Linker(object):
 	#
 	# search entities by queries in entities index
 	#
-	def query_entities(self, queries, language=None, normalized_label_languages=['en'], text = None, limit=10000):
+	def query_entities(self, queries, language=None, normalized_label_languages=['en'], text = None, limit=10000, normalized_entities = {}):
 
 		normalized_entities = {}
 
@@ -141,11 +141,9 @@ class Entity_Linker(object):
 	# Extraction / tagging of labels in full text by Solr Text Tagger https://lucene.apache.org/solr/guide/7_4/the-tagger-handler.html
 	#
 
-	def dictionary_matcher(self, text, language=None, normalized_label_languages=['en'], limit=10000):
+	def dictionary_matcher(self, text, language=None, normalized_label_languages=['en'], limit=10000, tagger='all_labels_ss_tag', normalized_entities = {}):
 
-		normalized_entities = {}
-
-		url = self.solr + self.solr_core + '/all_labels_ss_tag?matchText=true&overlaps=NO_SUB&fl=id,type_ss,preferred_label_s,skos_prefLabel_ss,label_ss,skos_altLabel_ss&wt=json'
+		url = self.solr + self.solr_core + '/' + tagger +'?matchText=true&overlaps=NO_SUB&fl=id,type_ss,preferred_label_s,skos_prefLabel_ss,label_ss,skos_altLabel_ss&wt=json'
 
 		if limit:
 			url += '&tagsLimit=' + str(limit)
@@ -196,14 +194,22 @@ class Entity_Linker(object):
 
 		return normalized_entities
 
+	#
+	# get entities
+	#
 
-	def entities(self, queries=None, language=None, normalized_label_languages=['en'], text = None, limit=10000):
+	def entities(self, queries=None, language=None, normalized_label_languages=['en'], text = None, limit=10000, taggers=['all_labels_ss_tag']):
+
 
 		# if no entities queries, match entities from dictionary of labels from thesaurus, ontologies, databases and lists
 		if queries:
 			normalized_entities = self.query_entities(queries, language=language, normalized_label_languages=normalized_label_languages, text=text, limit=limit)
 			
 		else:
-			normalized_entities = self.dictionary_matcher(text=text, language=language, normalized_label_languages=normalized_label_languages, limit=limit)
+
+			# extract entities from full text by all taggers/stemmers in taggers parameter
+			normalized_entities = {}
+			for tagger in taggers:
+				normalized_entities = self.dictionary_matcher(text=text, language=language, normalized_label_languages=normalized_label_languages, limit=limit, normalized_entities=normalized_entities, tagger=tagger)
 
 		return normalized_entities
