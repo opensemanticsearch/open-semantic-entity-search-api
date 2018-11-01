@@ -1,4 +1,50 @@
-{"requestHandler":{"/all_labels_ss_tag":{
-      "name":"/all_labels_ss_tag",
-      "class":"solr.TaggerRequestHandler",
-      "defaults":{"field":"all_labels_ss_tag"}}}}
+{
+	"requestHandler":{
+		"/all_labels_ss_tag":{
+			"name":"/all_labels_ss_tag",
+			"class":"solr.TaggerRequestHandler",
+			"defaults":{"field":"all_labels_ss_tag"}
+		},
+		"/all_labels_stemming_en_ss_tag":{
+			"name":"/all_labels_stemming_en_ss_tag",
+			"class":"solr.TaggerRequestHandler",
+			"defaults":{"field":"all_labels_stemming_en_ss_tag"}
+		},
+		"/all_labels_stemming_force_en_ss_tag":{
+			"name":"/all_labels_stemming_force_en_ss_tag",
+			"class":"solr.TaggerRequestHandler",
+			"defaults":{"field":"all_labels_stemming_force_en_ss_tag"}
+		},
+		"/all_labels_stemming_de_ss_tag":{
+			"name":"/all_labels_stemming_de_ss_tag",
+			"class":"solr.TaggerRequestHandler",
+			"defaults":{"field":"all_labels_stemming_de_ss_tag"}
+		},
+		"/all_labels_stemming_force_de_ss_tag":{
+			"name":"/all_labels_stemming_force_de_ss_tag",
+			"class":"solr.TaggerRequestHandler",
+			"defaults":{"field":"all_labels_stemming_force_de_ss_tag"}
+		},
+		"/all_labels_stemming_hu_ss_tag":{
+			"name":"/all_labels_stemming_hu_ss_tag",
+			"class":"solr.TaggerRequestHandler",
+			"defaults":{"field":"all_labels_stemming_hu_ss_tag", "skipAltTokens": "true"}
+		},
+		"/all_labels_stemming_force_hu_ss_tag":{
+			"name":"/all_labels_stemming_force_hu_ss_tag",
+			"class":"solr.TaggerRequestHandler",
+			"defaults":{"field":"all_labels_stemming_force_hu_ss_tag", "skipAltTokens": "true"}
+		},
+		"/all_labels_stemming_hunspell_hu_ss_tag":{
+			"name":"/all_labels_stemming_hunspell_hu_ss_tag",
+			"class":"solr.TaggerRequestHandler",
+			"defaults":{"field":"all_labels_stemming_hunspell_hu_ss_tag", "skipAltTokens": "true"}
+		},
+		"/all_labels_stemming_force_hunspell_hu_ss_tag":{
+			"name":"/all_labels_stemming_force_hunspell_hu_ss_tag",
+			"class":"solr.TaggerRequestHandler",
+			"defaults":{"field":"all_labels_stemming_force_hunspell_hu_ss_tag", "skipAltTokens": "true"}
+		}
+
+	}
+}

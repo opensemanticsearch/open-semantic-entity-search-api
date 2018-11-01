@@ -116,6 +116,7 @@
     <field name="_root_" type="string" indexed="true" stored="false" docValues="false" />
     <field name="_text_" type="text_general" indexed="true" stored="false" multiValued="true"/>
 
+
   <fieldType name="tag" class="solr.TextField" omitNorms="true" omitTermFreqAndPositions="true" postingsFormat="FST50" multiValued="true">
     <analyzer type="index">
       <tokenizer class="solr.StandardTokenizerFactory"/>
@@ -132,6 +133,110 @@
 
   <field name="all_labels_ss_tag" type="tag" stored="false"/>
   <copyField source="all_labels_ss" dest="all_labels_ss_tag"/>
+
+
+  <fieldType name="tag_stemming_en" class="solr.TextField" omitNorms="true" omitTermFreqAndPositions="true" postingsFormat="FST50" multiValued="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.EnglishPossessiveFilterFactory"/>
+      <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
+      <!-- Optionally you may want to use this less aggressive stemmer instead of PorterStemFilterFactory:
+      <filter class="solr.EnglishMinimalStemFilterFactory"/>
+	      -->
+      <filter class="solr.PorterStemFilterFactory"/>
+      <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.EnglishPossessiveFilterFactory"/>
+      <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
+      <!-- Optionally you may want to use this less aggressive stemmer instead of PorterStemFilterFactory:
+      <filter class="solr.EnglishMinimalStemFilterFactory"/>
+	      -->
+      <filter class="solr.PorterStemFilterFactory"/>
+
+    </analyzer>
+  </fieldType>
+
+  <field name="all_labels_stemming_en_ss_tag" type="tag_stemming_en" stored="false"/>
+  <copyField source="all_labels_stemming_en_ss" dest="all_labels_stemming_en_ss_tag"/>
+
+  <field name="all_labels_stemming_force_en_ss_tag" type="tag_stemming_en" stored="false"/>
+  <copyField source="all_labels_stemming_force_en_ss" dest="all_labels_stemming_force_en_ss_tag"/>
+
+
+  <fieldType name="tag_stemming_de" class="solr.TextField" omitNorms="true" omitTermFreqAndPositions="true" postingsFormat="FST50" multiValued="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.GermanNormalizationFilterFactory"/>
+      <!-- Solr default: <filter class="solr.GermanLightStemFilterFactory"/> -->
+      <!-- less aggressive: <filter class="solr.GermanMinimalStemFilterFactory"/> -->
+      <!-- more aggressive: -->
+      <filter class="solr.SnowballPorterFilterFactory" language="German2"/>
+      <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.GermanNormalizationFilterFactory"/>
+      <!-- Solr default: <filter class="solr.GermanLightStemFilterFactory"/> -->
+      <!-- less aggressive: <filter class="solr.GermanMinimalStemFilterFactory"/> -->
+      <!-- more aggressive: -->
+      <filter class="solr.SnowballPorterFilterFactory" language="German2"/>
+    </analyzer>
+  </fieldType>
+
+  <field name="all_labels_stemming_de_ss_tag" type="tag_stemming_de" stored="false"/>
+  <copyField source="all_labels_stemming_de_ss" dest="all_labels_stemming_de_ss_tag"/>
+
+  <field name="all_labels_stemming_force_de_ss_tag" type="tag_stemming_de" stored="false"/>
+  <copyField source="all_labels_stemming_force_de_ss" dest="all_labels_stemming_force_de_ss_tag"/>
+
+
+  <fieldType name="tag_stemming_hu" class="solr.TextField" omitNorms="true" omitTermFreqAndPositions="true" postingsFormat="FST50" multiValued="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.SnowballPorterFilterFactory" language="Hungarian"/>
+      <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.SnowballPorterFilterFactory" language="Hungarian"/>
+    </analyzer>
+  </fieldType>
+
+  <field name="all_labels_stemming_hu_ss_tag" type="tag_stemming_hu" stored="false"/>
+  <copyField source="all_labels_stemming_hu_ss" dest="all_labels_stemming_hu_ss_tag"/>
+
+  <field name="all_labels_stemming_force_hu_ss_tag" type="tag_stemming_hu" stored="false"/>
+  <copyField source="all_labels_stemming_force_hu_ss" dest="all_labels_stemming_force_hu_ss_tag"/>
+
+
+  <fieldType name="tag_stemming_hunspell_hu" class="solr.TextField" omitNorms="true" omitTermFreqAndPositions="true" postingsFormat="FST50" multiValued="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.HunspellStemFilterFactory" dictionary="lang/hunspell/hu_HU.dic" affix="lang/hunspell/hu_HU.aff" ignoreCase="true" />
+      <filter class="solr.ConcatenateGraphFilterFactory" preservePositionIncrements="false"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.HunspellStemFilterFactory" dictionary="lang/hunspell/hu_HU.dic" affix="lang/hunspell/hu_HU.aff" ignoreCase="true" />
+    </analyzer>
+  </fieldType>
+
+  <field name="all_labels_stemming_hunspell_hu_ss_tag" type="tag_stemming_hunspell_hu" stored="false"/>
+  <copyField source="all_labels_stemming_hunspell_hu_ss" dest="all_labels_stemming_hunspell_hu_ss_tag"/>
+
+  <field name="all_labels_stemming_force_hunspell_hu_ss_tag" type="tag_stemming_hunspell_hu" stored="false"/>
+  <copyField source="all_labels_stemming_force_hunspell_hu_ss" dest="all_labels_stemming_force_hunspell_hu_ss_tag"/>
+
 
     <!-- This can be enabled, in case the client does not know what fields may be searched. It isn't enabled by default
          because it's very expensive to index everything twice. -->
