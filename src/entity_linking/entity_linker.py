@@ -1,5 +1,6 @@
 import requests
 import json
+import sys
 
 #
 # Named Entity Linking, Disambiguation and Normalization by Named Entities in Solr search index
@@ -151,7 +152,7 @@ class Entity_Linker(object):
 		r = requests.post(url, data=text.encode('utf-8'))
 
 		if self.verbose:
-			print ("Entity linking / Solr Text Tagger result: {}".format(r.text))
+			print ("Entity linking / Solr Text Tagger result for tagger {}: {}".format(tagger, r.text))
 		
 		matches = r.json()
 
@@ -210,6 +211,9 @@ class Entity_Linker(object):
 			# extract entities from full text by all taggers/stemmers in taggers parameter
 			normalized_entities = {}
 			for tagger in taggers:
-				normalized_entities = self.dictionary_matcher(text=text, language=language, normalized_label_languages=normalized_label_languages, limit=limit, normalized_entities=normalized_entities, tagger=tagger)
+				try:
+					normalized_entities = self.dictionary_matcher(text=text, language=language, normalized_label_languages=normalized_label_languages, limit=limit, normalized_entities=normalized_entities, tagger=tagger)
+				except BaseException as e:
+					sys.stderr.write( "Exception using Solr Text Tagger {}: {}\n".format(tagger, e) )
 
 		return normalized_entities
