@@ -22,7 +22,7 @@ class Entity_Manager(object):
 	connector.verbose = verbose
 	
 	
-	def add(self, id, preferred_label=None, prefLabels=[], labels=[], types=[]):
+	def add(self, id, preferred_label=None, prefLabels=[], labels=[], types=[], fields={}):
 
 		# all labels
 		dictionary_labels = []
@@ -59,6 +59,11 @@ class Entity_Manager(object):
 		data['label_txt'] = data['label_ss']
 
 		data['all_labels_ss'] = dictionary_labels
+
+		# add additional fields, if there
+		if fields:
+			for field in fields:
+				data[field] = fields[field]
 		
 		# post to Solr index of entities for Normalization and Entity Linking
 		self.connector.solr = self.solr

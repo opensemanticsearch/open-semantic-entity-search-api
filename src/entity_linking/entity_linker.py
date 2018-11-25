@@ -142,14 +142,31 @@ class Entity_Linker(object):
 	# Extraction / tagging of labels in full text by Solr Text Tagger https://lucene.apache.org/solr/guide/7_4/the-tagger-handler.html
 	#
 
-	def dictionary_matcher(self, text, language=None, normalized_label_languages=['en'], limit=10000, tagger='all_labels_ss_tag', normalized_entities = {}):
+	def dictionary_matcher(self, text, language=None, normalized_label_languages=['en'], limit=10000, tagger='all_labels_ss_tag', normalized_entities = {}, additional_result_fields={}):
 
-		url = self.solr + self.solr_core + '/' + tagger +'?matchText=true&overlaps=NO_SUB&fl=id,type_ss,preferred_label_s,skos_prefLabel_ss,label_ss,skos_altLabel_ss&wt=json'
+		url = self.solr + self.solr_core + '/' + tagger
+
+		fields = [	'id',
+					'type_ss',
+					'preferred_label_s',
+					'skos_prefLabel_ss',
+					'label_ss',
+					'skos_altLabel_ss',
+		]
+
+		if additional_result_fields:
+			fields.extend(additional_result_fields)
+
+		params = {	'wt': 'json',
+					'matchText': 'true',
+					'overlaps': 'NO_SUB',
+					'fl': ','.join(fields),
+		}
 
 		if limit:
-			url += '&tagsLimit=' + str(limit)
+			params['tagsLimit'] = str(limit)
 
-		r = requests.post(url, data=text.encode('utf-8'))
+		r = requests.post(url, data=text.encode('utf-8'), params=params)
 
 		if self.verbose:
 			print ("Entity linking / Solr Text Tagger result for tagger {}: {}".format(tagger, r.text))
@@ -190,7 +207,12 @@ class Entity_Linker(object):
 				'type': types,
 			}
 
-			normalized_entities[entity['id']] = {}						
+			if additional_result_fields:
+				for field in additional_result_fields:
+					if field in entity:
+						result[field] = entity[field]
+
+			normalized_entities[entity['id']] = {}
 			normalized_entities[entity['id']]['result'] = [result]
 
 		return normalized_entities
@@ -199,7 +221,7 @@ class Entity_Linker(object):
 	# get entities
 	#
 
-	def entities(self, queries=None, language=None, normalized_label_languages=['en'], text = None, limit=10000, taggers=['all_labels_ss_tag']):
+	def entities(self, queries=None, language=None, normalized_label_languages=['en'], text = None, limit=10000, taggers=['all_labels_ss_tag'], additional_result_fields={}):
 
 
 		# if no entities queries, match entities from dictionary of labels from thesaurus, ontologies, databases and lists
@@ -212,7 +234,7 @@ class Entity_Linker(object):
 			normalized_entities = {}
 			for tagger in taggers:
 				try:
-					normalized_entities = self.dictionary_matcher(text=text, language=language, normalized_label_languages=normalized_label_languages, limit=limit, normalized_entities=normalized_entities, tagger=tagger)
+					normalized_entities = self.dictionary_matcher(text=text, language=language, normalized_label_languages=normalized_label_languages, limit=limit, normalized_entities=normalized_entities, tagger=tagger, additional_result_fields=additional_result_fields)
 				except BaseException as e:
 					sys.stderr.write( "Exception using Solr Text Tagger {}: {}\n".format(tagger, e) )
 
