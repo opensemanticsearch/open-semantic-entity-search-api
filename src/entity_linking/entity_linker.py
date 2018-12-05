@@ -200,12 +200,13 @@ class Entity_Linker(object):
 			types = []
 			if 'type_ss' in entity:
 				types = entity['type_ss']
-			
+							
 			result = {
 				'id': entity['id'],
 				'name': label,
 				'match': True,
 				'type': types,
+				'matchtext': [],
 			}
 
 			if additional_result_fields:
@@ -215,6 +216,33 @@ class Entity_Linker(object):
 
 			normalized_entities[entity['id']] = {}
 			normalized_entities[entity['id']]['result'] = [result]
+			
+			
+			
+			# add label matches in text
+			for tag in matches['tags']:
+				
+				matchtext = ''
+				entity_ids = []
+
+				is_variablename = True
+				variablename = ""
+				for entry in tag:
+					if is_variablename:
+						variablename = entry
+					elif variablename == 'matchText':
+							matchtext = entry
+					elif variablename == 'ids':
+							entity_ids = entry
+							
+					if is_variablename == True:
+						is_variablename = False
+					else:
+						is_variablename = True
+
+				for entity_id in entity_ids:
+					if matchtext and not matchtext in normalized_entities[entity_id]['result'][0]['matchtext']:
+						normalized_entities[entity_id]['result'][0]['matchtext'].append(matchtext)
 
 		return normalized_entities
 
