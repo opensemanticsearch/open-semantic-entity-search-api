@@ -25,10 +25,10 @@ class Entity_Manager(object):
 	def add(self, id, preferred_label=None, prefLabels=[], labels=[], types=[], fields={}):
 
 		# all labels
-		dictionary_labels = []
+		all_labels = []
 
 		if preferred_label:
-			dictionary_labels.append(preferred_label)
+			all_labels.append(preferred_label)
 		else:
 			if len(pref_Labels):
 				preferred_label = pref_Lables[0]
@@ -46,19 +46,19 @@ class Entity_Manager(object):
 		
 		data['skos_prefLabel_ss'] = []
 		for label in prefLabels:
-			if not label in dictionary_labels:
-				dictionary_labels.append(label)
+			if not label in all_labels:
+				all_labels.append(label)
 			data['skos_prefLabel_ss'].append(label)
 		data['skos_prefLabel_txt'] = data['skos_prefLabel_ss']
 
 		data['label_ss'] = []
 		for label in labels:
-			if not label in dictionary_labels:
-				dictionary_labels.append(label)
+			if not label in all_labels:
+				all_labels.append(label)
 			data['label_ss'].append(label)
 		data['label_txt'] = data['label_ss']
 
-		data['all_labels_ss'] = dictionary_labels
+		data['all_labels_ss'] = all_labels
 
 		# add additional fields, if there
 		if fields:
@@ -69,11 +69,19 @@ class Entity_Manager(object):
 		self.connector.solr = self.solr
 		self.connector.core = self.solr_core
 		self.connector.post(data=data, commit=True)
-				
+		
 		# if synonyms, append to synoynms config file
-		if self.solr_core_synonyms and len(dictionary_labels) > 1:
+		if self.solr_core_synonyms and len(all_labels) > 1:
 			self.connector.solr = self.solr_synonyms
 			self.connector.core = self.solr_core_synonyms
 
-			self.connector.append_synonyms(resourceid='skos', label=dictionary_labels[0], synonyms=dictionary_labels[1:])
+			# map all labels to each other (and to itself) in synonyms dictionary
+			synonyms = {}
+
+			for label in all_labels:
+				synonyms[label] = []
+				for synonym in all_labels:
+					synonyms[label].append(synonym)
+						
+			self.connector.append_synonyms(resourceid='skos', synonyms=synonyms)
 	
