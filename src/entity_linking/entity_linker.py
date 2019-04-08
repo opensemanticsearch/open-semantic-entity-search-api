@@ -262,9 +262,6 @@ class Entity_Linker(object):
 			# extract entities from full text by all taggers/stemmers in taggers parameter
 			normalized_entities = {}
 			for tagger in taggers:
-				try:
-					normalized_entities = self.dictionary_matcher(text=text, language=language, normalized_label_languages=normalized_label_languages, limit=limit, normalized_entities=normalized_entities, tagger=tagger, additional_result_fields=additional_result_fields)
-				except BaseException as e:
-					sys.stderr.write( "Exception using Solr Text Tagger {}: {}\n".format(tagger, e) )
+				normalized_entities = self.dictionary_matcher(text=text, language=language, normalized_label_languages=normalized_label_languages, limit=limit, normalized_entities=normalized_entities, tagger=tagger, additional_result_fields=additional_result_fields)
 
 		return normalized_entities
