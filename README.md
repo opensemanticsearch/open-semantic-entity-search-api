@@ -15,7 +15,7 @@ By integration of Open Standards for structured data formats (SKOS, RDF, JSON) a
 Usage
 =====
 
-After configuration (see section "Web User Interfaces (UI) for configuration and management of named entities") of your named entities from ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the REST API with a plain text / full-text (or even document files like PDF or Word, see section "Rich document formats") as parameter (see section "REST API request parameters") to extract and/or recommend Named Entities like persons, organizations or places and link them (see section "JSON response") in/to your Linked Data Knowledge Graph Database, Linked Open Data and Semantic Web.
+After configuration (see section "Web User Interfaces (UI) for configuration and management of named entities") of your named entities from ontologies, thesaurus, database(s) or lists of names (see section "Import entities") you can call the REST API with a plain text / full-text (or even document files like PDF or Word, see section "Rich document formats") as parameter (see section "REST API request parameters") to extract and/or recommend Named Entities like persons, organizations or places and link them (see section "JSON response") in/to your Linked Data Knowledge Graph Database, Linked Open Data and Semantic Web or as facets for faceted search or navigation by Solr or Elastic Search.
 
 
 Named Entity Linking, Normalization and Disambiguation
@@ -224,7 +224,7 @@ If you do not want to use the preconfigured Debian packages providing all compon
 Python 3.x
 
 Apache Solr >= 7.4
-https://lucene.apache.org/solr/ (preconfigured in Git repository https://github.com/opensemanticsearch/solr.deb)
+https://lucene.apache.org/solr/ (preconfigured Solr core / schema in this Git repository in /src/solr)
 
 Open Semantic ETL
 https://opensemanticsearch.org/etl (Git repository: https://github.com/opensemanticsearch/open-semantic-etl)
