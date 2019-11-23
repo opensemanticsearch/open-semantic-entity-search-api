@@ -39,6 +39,8 @@ Additional to the specified Open Refine Reconciliation API query parameters, you
 REST-API request parameters
 ---------------------------
 
+### Extract entities from full text
+
 Automatic named entity extraction of all known/imported entities / names / labels (extension only in Open Semantic Entity Search API, not Open Refine Reconciliation Service API query standard / not supported by other Open Refine Reconciliation Services / APIs):
 
 HTTP POST a plain text as parameter "text" to http://localhost/search-apps/entity_rest_api/reconcile so all known entities will be extracted automatically.
@@ -58,6 +60,9 @@ r = requests.post(openrefine_server, params=params)
 results = r.json()
 print(results)
 ```
+
+
+### Query for IDs and normalized data of your entity labels (Open Refine Reconciliation Service API query standard)
 
 Query for entities (stuctured by Open Refine Reconciliation Service API query standard specified in https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API#query-request):
 
