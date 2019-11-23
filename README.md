@@ -39,17 +39,32 @@ Additional to the specified Open Refine Reconciliation API query parameters, you
 REST-API request parameters
 ---------------------------
 
-Automatic named entity extraction of all known/imported entities / names / labels:
+Automatic named entity extraction of all known/imported entities / names / labels (extension only in Open Semantic Entity Search API, not Open Refine Reconciliation Service API query standard / not supported by other Open Refine Reconciliation Services / APIs):
 
 HTTP POST a plain text as parameter "text" to http://localhost/search-apps/entity_rest_api/reconcile so all known entities will be extracted automatically.
 
+Example for posting a full text to the REST-API by Python requests:
+
+```
+import requests
+
+text = "Mr. Jon Doe lives in Berlin."
+
+openrefine_server = 'http://localhost/search-apps/entity_rest_api/reconcile'
+
+params = {'text': text}
+r = requests.post(openrefine_server, params=params)
+
+results = r.json()
+print(results)
+```
 
 Query for entities (stuctured by Open Refine Reconciliation Service API query standard specified in https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API#query-request):
 
 ```
 http://localhost/search-apps/entity_rest_api/reconcile?queries={ "q0" : { "query" : "Jon Doe" }, "q1" : { "query" : "Berlin" } }
 ```
-Optionally you can HTTP POST a context as parameter "text" to provide more context to improve scoring of disambiguation (scoring of ambigous entites by context not implemented yet).
+Optionally you can HTTP POST a context as parameter "text" like in the example before to provide more context to improve scoring of disambiguation (scoring of ambigous entites by context not implemented yet).
 
 
 JSON response
@@ -223,7 +238,7 @@ If you do not want to use the preconfigured Debian packages providing all compon
 
 Python 3.x
 
-Apache Solr >= 7.4
+Apache Solr (>= 7.4)
 https://lucene.apache.org/solr/ (preconfigured Solr core / schema in this Git repository in /src/solr)
 
 Open Semantic ETL
@@ -231,9 +246,3 @@ https://opensemanticsearch.org/etl (Git repository: https://github.com/openseman
 
 Solr Ontology Tagger (Git repository: https://github.com/opensemanticsearch/solr-ontology-tagger)
 
-
-Dependencies for Named Entity Recognition of entities by Machine Learning, that are not in ontologies, thesauri, databases or lists:
-
-spaCy (Git repository: https://github.com/explosion/spaCy)
-
-spaCy-services (Git repository: https://github.com/explosion/spacy-services)
