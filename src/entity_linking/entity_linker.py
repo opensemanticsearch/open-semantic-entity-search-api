@@ -18,6 +18,9 @@ import sys
 class Entity_Linker(object):
 
 	solr = 'http://localhost:8983/solr/'
+	if os.getenv('OPEN_SEMANTIC_ETL_SOLR'):
+		solr = os.getenv('OPEN_SEMANTIC_ETL_SOLR')
+
 	solr_core = 'opensemanticsearch-entities'
 	
 	fields = [	'id',
