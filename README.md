@@ -9,7 +9,7 @@ REST API and Python library for search, suggestion, recommendation, normalizatio
 Open Source and Open Standards
 ==============================
 
-By integration of Open Standards for structured data formats (SKOS, RDF, JSON) and REST APIs (HTTP, REST) and entity linking/disambiguation/reconciliation (Open Refine Reconciliation Service API) and Open Source tools for natural language processing and text analytics this Free Software provides an Open Refine Reconciliation Service API (extended with automatic entity extraction, so you can post a full text instead of entity queries) for your own SKOS thesaurus, RDF ontologies and lists of names from lists, spreadsheets or databases as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service and you can independent setup additional / own named entities or names.
+By integration of Open Standards for structured data formats (SKOS, RDF, JSON) and REST APIs (HTTP, REST) and entity linking/disambiguation/reconciliation (Open Refine Reconciliation Service API) and Open Source tools for natural language processing and text analytics this Free Software provides an Open Refine Reconciliation Service API (extended with automatic entity extraction, so you can post a full text instead of entity queries) for your own SKOS thesaurus, RDF ontologies and lists of names from lists, spreadsheets or databases as an independent service which can run on your own server or laptop, so you have not to send sensitive content data or names to external cloud service, and you can independent setup additional / own named entities or names.
 
 
 Usage
@@ -21,7 +21,7 @@ After configuration (see section "Web User Interfaces (UI) for configuration and
 Named Entity Linking, Normalization and Disambiguation
 ======================================================
 
-Links plain text names/labels to ID/URI and normalizes alias or alternate label to preferred label and recommends all found entitites for disambiguation and reconciliation.
+Links plain text names/labels to ID/URI and normalizes alias or alternate label to preferred label and recommends all found entities for disambiguation and reconciliation.
 
 
 REST-API (Open Refine Reconciliation Service API standard)
@@ -33,7 +33,7 @@ The Entity Linker based Named Entity Linking and Normalization REST-API in entit
 Named Entity Extraction from full-text
 --------------------------------------
 
-Additional to the specified Open Refine Reconciliation API query parameters, you can POST a full text / context additionally or instead of entity queries of yet extracted entities or strucutred data field with entities (which in other Open Refine Reconciliation Service APIs are required), so the context will not only used for disambiguation scoring but entities will be extracted automatically from the text.
+Additional to the specified Open Refine Reconciliation API query parameters, you can POST a full text / context additionally or instead of entity queries of yet extracted entities or structured data field with entities (which in other Open Refine Reconciliation Service APIs are required), so the context will not only be used for disambiguation scoring but entities will be extracted automatically from the text.
 
 
 REST-API request parameters
@@ -64,18 +64,18 @@ print(results)
 
 ### Query for IDs and normalized data of your entity labels (Open Refine Reconciliation Service API query standard)
 
-Query for entities (stuctured by Open Refine Reconciliation Service API query standard specified in https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API#query-request):
+Query for entities (structured by Open Refine Reconciliation Service API query standard specified in https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API#query-request):
 
 ```
 http://localhost/search-apps/entity_rest_api/reconcile?queries={ "q0" : { "query" : "Jon Doe" }, "q1" : { "query" : "Berlin" } }
 ```
-Optionally you can HTTP POST a context as parameter "text" like in the example before to provide more context to improve scoring of disambiguation (scoring of ambigous entites by context not implemented yet).
+Optionally you can HTTP POST a context as parameter "text" like in the example before to provide more context to improve scoring of disambiguation (scoring of ambiguous entities by context not implemented yet).
 
 
 JSON response
 -------------
 
-In both cases the response (stuctured by Open Refine Reconciliation Service API response standard specified in https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API#query-response) is a JSON literal object with the same keys as in the request
+In both cases the response (structured by Open Refine Reconciliation Service API response standard specified in https://github.com/OpenRefine/OpenRefine/wiki/Reconciliation-Service-API#query-response) is a JSON literal object with the same keys as in the request
 
 ```
 {
@@ -109,7 +109,7 @@ Each result consists of a JSON literal object with the structure
 Entity Linker, Recommender and Normalizer (Python library)
 ----------------------------------------------------------
 
-Therefore the REST-API uses the Python and Dictionary Matcher based and Apache Solr search index powered module Entity_Linker from the library entity_linking for Entity Linking and Normalization.
+The REST-API uses the Python and Dictionary Matcher based and Apache Solr search index powered module Entity_Linker from the library entity_linking for Entity Linking and Normalization.
 
 Example:
 
