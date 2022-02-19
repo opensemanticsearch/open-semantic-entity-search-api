@@ -34,10 +34,10 @@ class Entity_Manager(object):
 		if preferred_label:
 			all_labels.append(preferred_label)
 		else:
-			if len(pref_Labels):
-				preferred_label = pref_Lables[0]
+			if len(prefLabels):
+				preferred_label = prefLabels[0]
 			elif len(labels):
-				preferred_label = lables[0]
+				preferred_label = labels[0]
 			else:
 				preferred_label = id
 
@@ -53,6 +53,8 @@ class Entity_Manager(object):
 			if not label in all_labels:
 				all_labels.append(label)
 			data['skos_prefLabel_ss'].append(label)
+		if not len(prefLabels):
+			data['skos_prefLabel_ss'] = [preferred_label]
 		data['skos_prefLabel_txt'] = data['skos_prefLabel_ss']
 
 		data['label_ss'] = []
